@@ -1,0 +1,42 @@
+Une API aide à utiliser un bout de logiciel dans un autre par exemple l'utilisation des librairies.
+On va utiliser l'API HTTP
+Question 1
+
+Fonctionnalités :
+    Récupérer les données
+    Donner un pokémon au hasard chaque jour
+    Echanger les pokémons
+        Utilisateur propose un échange visible par tous
+    Inscription/Connexion
+    Faire un XP un pokémon(monter en niveau)
+
+Question 2
+
+Les classes seront créees dans entity
+EDéclaration des tables de le bdd dans /DAO/_Initializer
+Effectuer les contrôles dans core 
+
+Principales classes 
+    Joueur
+        liste de pokémons
+        identifiant
+        mot de passe
+        date de dernière Connexion
+        nombre de pokémons qui ont été XP
+        liste d'échanges
+    Pokémon
+        nom
+        Spite (url vers son image/avatar)
+        identifiant unique
+        id pokedex
+        niveau
+        Utilisateur
+        Echange
+    Echange
+        id unique
+        pokemon(juste l'id pour la bdd)
+        date
+        liste de pokemons voulus(id pokedex)
+        satut de l'échange(en attente, refuse, accepté, annulé)
+
+
