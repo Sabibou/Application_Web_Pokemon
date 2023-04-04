@@ -16,9 +16,14 @@ public class PokemonEntity {
         this.sprite = sprite;
         this.level = 1;
     }
-
-
+        
+    public String getName(){
+        return name;
+    }
     
+    public String setName(String name){
+        this.name = name;    
+    }
 
 
 }

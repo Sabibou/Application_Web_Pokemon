@@ -10,13 +10,13 @@ public class UserDAO extends _Generic<UserEntity> {
     public ArrayList<UserEntity> getAllUsers() {
         ArrayList<UserEntity> entities = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM users ORDER BY id ASC;");
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM joueur ORDER BY id ASC;");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 UserEntity entity = new UserEntity();
                 entity.setId(resultSet.getInt("id"));
-                entity.setFirstName(resultSet.getString("firstname"));
-                entity.setLastName(resultSet.getString("lastname"));
+                entity.setPseudo(resultSet.getString("pseudo"));
+                entity.setPassword(resultSet.getString("password"));
 
                 entities.add(entity);
             }

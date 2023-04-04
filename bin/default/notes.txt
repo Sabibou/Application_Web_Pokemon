@@ -18,13 +18,14 @@ Effectuer les contrôles dans core
 
 Principales classes 
     Joueur
+        ID unique
         liste de pokémons
         identifiant
         mot de passe
         date de dernière Connexion
         nombre de pokémons qui ont été XP
         liste d'échanges
-    Pokémon
+    Pokémon possédé
         nom
         Spite (url vers son image/avatar)
         identifiant unique
@@ -37,6 +38,37 @@ Principales classes
         pokemon(juste l'id pour la bdd)
         date
         liste de pokemons voulus(id pokedex)
-        satut de l'échange(en attente, refuse, accepté, annulé)
+        statut de l'échange(en attente, refuse, accepté, annulé)
+
+Question 3
+
+    Joueur
+        id int primary key auto-increment,
+        identifiant(pseudo) varchar(64) unique,
+        password varchar(255),
+        last_connection timestamp,
+        nb_pok_xp int;
+
+    pokemon
+        id int primary key auto-increment,
+        id_pokedex int,
+        level int,
+        name varchar(64),
+        sprite varchar(255),
+        user_id int references joueur.id NOT NULL,
+        
+    Echange 
+        id int primary key auto-increment,
+        pokemon_id int references pokemon.id NOT NULL,
+        date timestamp DEFAULT NOW(),
+        state int DEFAULT 0(waiting);
+
+    Echange voulu
+        id_echange int references echange.id,
+        id_pokedex int;
+
+
+
+
 
 

@@ -68,6 +68,12 @@ Question 3
         id_pokedex int;
 
 
+URI 
+    POST/register
+    GET/user-id/new-pokemon
+    POST/user-id/liste-pokemons/pokemon-id
+    POST/pokemon-id/level-up
+    GET/echange
 
 
 

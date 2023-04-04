@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Web_serveur</name>
-	<comment>Project Web_serveur created by Buildship.</comment>
+	<name>projet-pokemon</name>
+	<comment>Project projet-pokemon created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1679987803694</id>
+			<id>1680588691427</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

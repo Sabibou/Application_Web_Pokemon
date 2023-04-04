@@ -6,7 +6,7 @@ public class UserEntity {
     private int id;
     private String pseudo;
     private String password;
-    private Date lastConnection;
+    private Timestamp lastConnection;
     private int nbPokemonXP;
     private ExchangeEntity exchange;
     private PokemonEntity pokemon;
@@ -27,7 +27,7 @@ public class UserEntity {
         return pseudo;
     }
 
-    public void setPseudo(String pseudo) {
+    public String setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
 
@@ -35,7 +35,7 @@ public class UserEntity {
         return password;
     }
 
-    public void setPassword(String password) {
+    public String setPassword(String password) {
         this.password = password;
     }
 }
