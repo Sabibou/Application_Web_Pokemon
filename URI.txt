@@ -1,0 +1,38 @@
+Afficher page d'inscription :
+GET /register
+
+S'inscrire :
+POST /register
+
+Afficher page de connexion :
+GET /login
+
+Se connecter :
+POST /login
+
+Avoir tous les utilisateurs :
+GET /users 
+
+Page de l'utilisateur :
+GET /user-id
+
+Avoir la liste de pokemon :
+GET /user-id/pokemon-list
+
+Augmenter le nv d'un pokemon :
+POST /pokemon-id/lvl-up
+
+?Acceder à la page d'un pokemon :
+GET /pokemon-id
+
+Creer un echange :
+POST /echanges
+
+Acceder à la page des échanges :
+GET /echanges
+
+Acceder à une page d'échange en particulier :
+GET /echange-id
+
+Valider un échange :
+GET /echange-id

@@ -1,6 +1,9 @@
 package com.uca.entity;
 
 import java.sql.Timestamp;
+import java.util.LinkedList;
+
+import com.uca.entity.PokemonEntity;
 
 public class UserEntity {
     private int id;
@@ -8,11 +11,11 @@ public class UserEntity {
     private String password;
     private Timestamp lastConnection;
     private int nbPokemonXP;
-    private ExchangeEntity exchange;
-    private PokemonEntity pokemon;
+    private LinkedList<ExchangeEntity> exchange;
+    private LinkedList<PokemonEntity> pokemon;
 
     public UserEntity() {
-        //Ignored !
+        
     }
 
     public int getId() {
@@ -27,7 +30,7 @@ public class UserEntity {
         return pseudo;
     }
 
-    public String setPseudo(String pseudo) {
+    public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
 
@@ -35,7 +38,45 @@ public class UserEntity {
         return password;
     }
 
-    public String setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Timestamp getLastConnection(){
+
+        return this.lastConnection;
+    }
+
+    public void setLastConnection(Timestamp t){
+
+        this.lastConnection = t;
+    }
+
+    public void resetNbPokemonXP(){
+
+        this.nbPokemonXP = 5;
+    }
+
+    public boolean canXP(){
+
+        return this.nbPokemonXP > 0;
+    }
+
+    public void useXP(){
+
+        if(canXP()){
+
+            this.nbPokemonXP--;
+        }
+    }
+
+    public ExchangeEntity getExchange(int index){
+
+        return this.exchange.get(index);
+    }
+
+    public PokemonEntity getPokemon(int index){
+
+        return this.pokemon.get(index);
     }
 }

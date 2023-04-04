@@ -1,3 +1,6 @@
+package com.uca.entity;
+
+import java.sql.Timestamp;
 
 public class PokemonEntity {
     private String name;
@@ -7,7 +10,7 @@ public class PokemonEntity {
     private UserEntity user; // Composition
     private ExchangeEntity exchange;
     private String sprite;
-    private int userid;
+    private int userId;
 
     public PokemonEntity(String name, int pokedexId, UserEntity user, String sprite) {
         this.name = name;
@@ -21,9 +24,45 @@ public class PokemonEntity {
         return name;
     }
     
-    public String setName(String name){
+    public void setName(String name){
         this.name = name;    
     }
 
+    public int getId(){
 
+        return this.id;
+    }
+
+    public void setId(int id){
+
+        this.id = id;
+    }
+
+    public int getPokedexId(){
+
+        return this.pokedexId;
+    }
+
+    public void setPokedexId(int id){
+
+        this.pokedexId = id;
+    }
+
+    public void setUserId(int id){
+
+        this.userId = id;
+    }
+
+    public int getUserId(){
+
+        return this.userId;
+    }
+
+    public void lvlUp(){
+
+        if(this.level < 100){
+
+            this.level++;
+        }
+    }
 }
