@@ -18,6 +18,13 @@ public class UserEntity {
         
     }
 
+    public UserEntity(String pseudo, String pwd, Timestamp t){
+
+        this.pseudo = pseudo;
+        this.password = pwd;
+        this.lastConnection = t;
+    }
+
     public int getId() {
         return id;
     }

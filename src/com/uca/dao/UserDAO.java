@@ -28,8 +28,21 @@ public class UserDAO extends _Generic<UserEntity> {
     }
 
     @Override
-    public UserEntity create(UserEntity obj) {
-        //TODO !
+    public UserEntity create(UserEntity user) {
+
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO joueur (pseudo, password, last_connection, nb_pok_xp) VALUES (?, ?, ?, ?)");
+
+            statement.setString(1, user.getPseudo());
+            statement.setString(2, user.getPassword());
+            statement.setTimestamp(3, user.getLastConnection());
+            statement.setInt(4, 0);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

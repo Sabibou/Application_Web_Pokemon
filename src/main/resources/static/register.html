@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register</title>
+    </head>
+
+	
+	<body>
+
+            <h1>Créer un compte</h1>
+
+            <form id="form" method="post" action="/register">
+                <div class="input">
+                    <label for="username">User Name</label>
+                    <input id="username" type="text" name="username">
+                    <div class="error"></div>
+                </div>
+                <div class="input">
+                    <label for="useremail">Email</label>
+                    <input id="useremail" type="text" name="useremail">
+                    <div class="error"></div>
+                </div>
+                <div class="input">
+                    <label for="userpwd">Password</label>
+                    <input id="userpwd" type="password" name="userpwd">
+                    <div class="error"></div>
+                </div>
+                <div class="input">
+                    <label for="firstname">First Name</label>
+                    <input id="firstname" type="text" name="firstname">
+                    <div class="error"></div>
+                </div>
+                <div class="input">
+                    <label for="lastname">Last Name</label>
+                    <input id="lastname" type="text" name="lastname">
+                    <div class="error"></div>
+                </div>
+
+                <p><input id="go" type="submit" value="Register" ><input type="reset" value="Clear" ></p>
+            </form>
+
+
+	</body>
+
+</html>
+
