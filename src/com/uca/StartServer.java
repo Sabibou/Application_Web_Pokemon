@@ -46,8 +46,13 @@ public class StartServer{
 
         post("/login", (req, res) -> {
 
-            res.redirect("login.html");
-            return null;
+            int id = UserCore.getIdFromPseudo(req.queryParams("username"));
+            return UserGUI.getUserById(id);
+        });
+
+        get("/user-:id", (req, res) -> {
+
+            return UserGUI.getUserById(Integer.parseInt(req.params(":id")));
         });
     }
 }

@@ -27,11 +27,53 @@ public class UserDAO extends _Generic<UserEntity> {
         return entities;
     }
 
+    public UserEntity getUserById(int id){
+
+        UserEntity user = new UserEntity();
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM joueur WHERE id = ?;");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            user.setId(resultSet.getInt("id"));
+            user.setPokemon(new PokemonDAO().getAllPokemonByUser(id));
+            user.setPseudo(resultSet.getString("pseudo"));
+            user.setLastConnection(new Timestamp(System.currentTimeMillis()));
+            user.setPassword(resultSet.getString("password"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    public int getIdFromPseudo(String pseudo){
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT id FROM joueur WHERE pseudo=?");
+            preparedStatement.setString(1, pseudo);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            return resultSet.getInt("id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
     @Override
     public UserEntity create(UserEntity user) {
 
         try {
-            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO joueur (pseudo, password, last_connection, nb_pok_xp) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO joueur (pseudo, password, last_connection, nb_pok_xp) VALUES (?, ?, ?, ?);");
 
             statement.setString(1, user.getPseudo());
             statement.setString(2, user.getPassword());

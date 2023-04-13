@@ -12,12 +12,18 @@ public class PokemonEntity {
     private String sprite;
     private int userId;
 
+    public PokemonEntity(){
+
+        this.level = 1;
+        this.exchange = null;
+    }
     public PokemonEntity(String name, int pokedexId, UserEntity user, String sprite) {
+
+        this();
         this.name = name;
         this.pokedexId = pokedexId;
         this.user = user;
         this.sprite = sprite;
-        this.level = 1;
     }
         
     public String getName(){
@@ -56,6 +62,16 @@ public class PokemonEntity {
     public int getUserId(){
 
         return this.userId;
+    }
+
+    public void setSprite(String sprite){
+
+        this.sprite = sprite;
+    }
+
+    public String getSprite(){
+
+        return this.sprite;
     }
 
     public void lvlUp(){

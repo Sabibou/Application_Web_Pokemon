@@ -15,11 +15,15 @@ public class UserEntity {
     private LinkedList<PokemonEntity> pokemon;
 
     public UserEntity() {
-        
+
+        this.nbPokemonXP = 0;
+        this.exchange = new LinkedList<>();
+        this.pokemon = new LinkedList<>();
     }
 
     public UserEntity(String pseudo, String pwd, Timestamp t){
 
+        this();
         this.pseudo = pseudo;
         this.password = pwd;
         this.lastConnection = t;
@@ -59,6 +63,16 @@ public class UserEntity {
         this.lastConnection = t;
     }
 
+    public void setPokemon(LinkedList<PokemonEntity> pokemon){
+
+        this.pokemon = pokemon;
+    }
+
+    public void setExchange(LinkedList<ExchangeEntity> exchange){
+
+        this.exchange = exchange;
+    }
+
     public void resetNbPokemonXP(){
 
         this.nbPokemonXP = 5;
@@ -85,5 +99,10 @@ public class UserEntity {
     public PokemonEntity getPokemon(int index){
 
         return this.pokemon.get(index);
+    }
+
+    public LinkedList<PokemonEntity> getPokemon(){
+
+        return this.pokemon;
     }
 }

@@ -18,4 +18,14 @@ public class UserCore {
         new UserDAO().create(user);
     }
 
+    public static UserEntity getUserById(int id){
+
+        return new UserDAO().getUserById(id);
+    }
+
+    public static int getIdFromPseudo(String pseudo){
+
+        return new UserDAO().getIdFromPseudo(pseudo);
+    }
+
 }
