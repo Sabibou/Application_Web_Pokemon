@@ -7,7 +7,7 @@ ${main_user.pseudo}
 
 <ul>
     <#list users as user>
-        <li>${user.id} - ${user.pseudo} </li>
+        <li><a href="/${user.id}">${user.id} - ${user.pseudo} </a></li>
     </#list>
 </ul>
 

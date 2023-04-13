@@ -12,10 +12,10 @@ public class UserCore {
         return new UserDAO().getAllUsers();
     }
 
-    public static void createNewUser(String pseudo, String pwd, Timestamp t){
+    public static UserEntity createNewUser(String pseudo, String pwd, Timestamp t){
 
         UserEntity user = new UserEntity(pseudo, pwd, t);
-        new UserDAO().create(user);
+        return new UserDAO().create(user);
     }
 
     public static UserEntity getUserById(int id){
@@ -23,9 +23,16 @@ public class UserCore {
         return new UserDAO().getUserById(id);
     }
 
-    public static int getIdFromPseudo(String pseudo){
+    public static UserEntity getUserByPseudo(String pseudo){
 
-        return new UserDAO().getIdFromPseudo(pseudo);
+        return new UserDAO().getUserByPseudo(pseudo);
     }
+
+    public static boolean verifyPasword(String pwd1, String pw2){
+
+        return new UserDAO().verifyPassword(pwd1, pw2);
+    }
+
+
 
 }

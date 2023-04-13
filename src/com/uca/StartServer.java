@@ -1,7 +1,9 @@
 package com.uca;
 
+import com.uca.core.PokemonCore;
 import com.uca.core.UserCore;
 import com.uca.dao._Initializer;
+import com.uca.entity.UserEntity;
 import com.uca.gui.*;
 
 import java.sql.Timestamp;
@@ -34,7 +36,9 @@ public class StartServer{
 
         post("/register", (req, res) -> {
 
-            UserCore.createNewUser(req.queryParams("username"), req.queryParams("userpwd"), new Timestamp(System.currentTimeMillis()));
+            UserEntity user = UserCore.createNewUser(req.queryParams("username"), req.queryParams("userpwd"), new Timestamp(System.currentTimeMillis()));
+            PokemonCore.createNewPokemon(3, user.getId());
+
             return null;
         });
 
@@ -46,13 +50,27 @@ public class StartServer{
 
         post("/login", (req, res) -> {
 
-            int id = UserCore.getIdFromPseudo(req.queryParams("username"));
-            return UserGUI.getUserById(id);
+            UserEntity user = UserCore.getUserByPseudo(req.queryParams("username"));
+            if(user == null){
+
+                return "Mauvais nom d'utilisateur";
+            }
+            else{
+                if(UserCore.verifyPasword(user.getPassword(), req.queryParams("userpwd"))){
+
+                    return UserGUI.getUser(user);
+                }
+                else{
+
+                    return "Mauvais mdp";
+                }
+            }
         });
 
-        get("/user-:id", (req, res) -> {
+        get("/:user_id", (req, res) -> {
 
-            return UserGUI.getUserById(Integer.parseInt(req.params(":id")));
+            System.out.println("a" + Integer.parseInt(req.params("user_id")));
+            return UserGUI.getUserById(Integer.parseInt(req.params("user_id")));
         });
     }
 }

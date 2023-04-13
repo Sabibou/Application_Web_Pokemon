@@ -1,7 +1,6 @@
 package com.uca.dao;
 
 import com.uca.entity.PokemonEntity;
-import com.uca.entity.UserEntity;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -36,7 +35,20 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
     }
 
     @Override
-    public PokemonEntity create(PokemonEntity pokemon) {
+    public PokemonEntity create(PokemonEntity pokemon){
+
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO pokemon (id_pokedex, name, sprite, user_id) VALUES (?, ?, ?, ?);");
+
+            statement.setInt(1, pokemon.getPokedexId());
+            statement.setString(2, pokemon.getName());
+            statement.setString(3, pokemon.getSprite());
+            statement.setInt(4, pokemon.getUserId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return null;
     }

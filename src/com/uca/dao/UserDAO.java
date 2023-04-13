@@ -29,14 +29,14 @@ public class UserDAO extends _Generic<UserEntity> {
 
     public UserEntity getUserById(int id){
 
-        UserEntity user = new UserEntity();
-
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM joueur WHERE id = ?;");
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM joueur WHERE id=?");
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
+
+            UserEntity user = new UserEntity();
 
             user.setId(resultSet.getInt("id"));
             user.setPokemon(new PokemonDAO().getAllPokemonByUser(id));
@@ -44,29 +44,44 @@ public class UserDAO extends _Generic<UserEntity> {
             user.setLastConnection(new Timestamp(System.currentTimeMillis()));
             user.setPassword(resultSet.getString("password"));
 
+            return user;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return user;
+        return null;
     }
 
-    public int getIdFromPseudo(String pseudo){
+    public UserEntity getUserByPseudo(String pseudo){
 
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT id FROM joueur WHERE pseudo=?");
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM joueur WHERE pseudo=?");
             preparedStatement.setString(1, pseudo);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
 
-            return resultSet.getInt("id");
+            UserEntity user = new UserEntity();
+
+            user.setId(resultSet.getInt("id"));
+            user.setPokemon(new PokemonDAO().getAllPokemonByUser(resultSet.getInt("id")));
+            user.setPseudo(resultSet.getString("pseudo"));
+            user.setLastConnection(new Timestamp(System.currentTimeMillis()));
+            user.setPassword(resultSet.getString("password"));
+
+            return user;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return -1;
+        return null;
+    }
+
+    public boolean verifyPassword(String password1, String password2){
+
+        return password1.equals(password2);
     }
 
     @Override
@@ -81,6 +96,16 @@ public class UserDAO extends _Generic<UserEntity> {
             statement.setInt(4, 0);
 
             statement.executeUpdate();
+
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT id FROM joueur WHERE pseudo=?");
+            preparedStatement.setString(1, user.getPseudo());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            user.setId(resultSet.getInt("id"));
+
+            return user;
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
