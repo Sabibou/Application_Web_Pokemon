@@ -74,11 +74,11 @@ public class StartServer{
         });
 
         post("/:pokemon_id/lvl_up", (req, res) -> {
-            //int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt("pokemon_id"));
-            //System.out.println("userid=" + user_id);
-            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id"))) > 0){
-
-                //UserCore.lvlUp(user_id);
+            int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt(req.params("pokemon_id")));
+            System.out.println("pok_id=" + req.params("pokemon_id"));
+            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id")), user_id) > 0){
+                System.out.println("lvlup");
+                UserCore.lvlUp(user_id);
             }
 
             return null;
@@ -86,11 +86,11 @@ public class StartServer{
 
         get("/:pokemon_id/lvl_up", (req, res) -> {
 
-            //int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt("pokemon_id"));
-            //System.out.println("userid=" + user_id);
-            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id"))) > 0){
-
-                //UserCore.lvlUp(user_id);
+            int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt(req.params("pokemon_id")));
+            System.out.println("pok_id=" + req.params("pokemon_id"));
+            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id")), user_id) > 0){
+                System.out.println("lvlup");
+                UserCore.lvlUp(user_id);
             }
 
             return null;

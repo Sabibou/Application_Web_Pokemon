@@ -8,9 +8,14 @@ import com.uca.entity.PokemonEntity;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 
 public class PokemonCore {
 
+    public static LinkedList<PokemonEntity> getAllPokemonByUser(int user_id){
+
+        return new PokemonDAO().getAllPokemonByUser(user_id);
+    }
     public static void createNewPokemon(int id, int user_id) throws IOException {
 
         URL url = new URL("https://pokeapi.co/api/v2/pokemon-form/" + id);
@@ -38,8 +43,4 @@ public class PokemonCore {
     }
 
 
-    public static int lvlUp(int id){
-
-        return new PokemonDAO().lvlUp(id);
-    }
 }

@@ -19,6 +19,7 @@ public class UserDAO extends _Generic<UserEntity> {
                 entity.setPseudo(resultSet.getString("pseudo"));
                 entity.setPassword(resultSet.getString("password"));
                 entity.setLastConnection(resultSet.getTimestamp("last_connection"));
+                entity.setNbPokemonXP(resultSet.getInt("nb_pok_xp"));
 
                 entities.add(entity);
             }
@@ -41,7 +42,7 @@ public class UserDAO extends _Generic<UserEntity> {
             UserEntity user = new UserEntity();
 
             user.setId(resultSet.getInt("id"));
-            user.setPokemon(new PokemonDAO().getAllPokemonByUser(id));
+            user.setPokemon(PokemonCore.getAllPokemonByUser(id));
             user.setPseudo(resultSet.getString("pseudo"));
             user.setLastConnection(new Timestamp(System.currentTimeMillis()));
             user.setPassword(resultSet.getString("password"));
@@ -67,7 +68,7 @@ public class UserDAO extends _Generic<UserEntity> {
             UserEntity user = new UserEntity();
 
             user.setId(resultSet.getInt("id"));
-            user.setPokemon(new PokemonDAO().getAllPokemonByUser(resultSet.getInt("id")));
+            user.setPokemon(PokemonCore.getAllPokemonByUser(resultSet.getInt("id")));
             user.setPseudo(resultSet.getString("pseudo"));
             user.setLastConnection(new Timestamp(System.currentTimeMillis()));
             user.setPassword(resultSet.getString("password"));
@@ -95,9 +96,9 @@ public class UserDAO extends _Generic<UserEntity> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
-
+            System.out.println(resultSet.getInt("nb_pok_xp"));
             if(resultSet.getInt("nb_pok_xp") < 5){
-
+                System.out.println(resultSet.getInt("nb_pok_xp"));
                 return true;
 
             }
@@ -112,7 +113,7 @@ public class UserDAO extends _Generic<UserEntity> {
     public int lvlUp(int user_id){
 
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE joueur set nb_pok_xp = nb_pok_xp + 1 WHERE id=?");
+            PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE joueur SET nb_pok_xp=nb_pok_xp+1 WHERE id=?");
             preparedStatement.setInt(1, user_id);
             return preparedStatement.executeUpdate();
 

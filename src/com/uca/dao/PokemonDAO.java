@@ -38,48 +38,17 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
         return entities;
     }
 
-    public int lvlUp(int id){  //>0: reussi  0:lvl max  -1:echec
-
-        try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT user_id FROM pokemon WHERE id=?;");
-            preparedStatement.setInt(1, id);
-
-            ResultSet resultSet =  preparedStatement.executeQuery();
-
-            resultSet.next();
-
-            if(UserCore.canLvlUp(resultSet.getInt("user_id"))){
-                System.out.println("canLvl");
-                preparedStatement = this.connect.prepareStatement("UPDATE pokemon set level=level+1 WHERE id=?;");
-                preparedStatement.setInt(1, id);
-
-                return preparedStatement.executeUpdate();
-            }
-
-            return 0;
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
-    }
-
     public int lvlUp(int id, int user_id){  //>0: reussi  0:lvl max  -1:echec
 
         try{
 
             if(UserCore.canLvlUp(user_id)){
                 System.out.println("canLvl");
-                PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE pokemon set level=level+1 WHERE id=?;");
+                PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE pokemon SET level=level+1 WHERE id=?;");
                 preparedStatement.setInt(1, id);
 
                 return preparedStatement.executeUpdate();
             }
-
-            return 0;
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,12 +80,13 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
     public PokemonEntity create(PokemonEntity pokemon){
 
         try {
-            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO pokemon (id_pokedex, name, sprite, user_id) VALUES (?, ?, ?, ?);");
+            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO pokemon (id_pokedex, name, sprite, user_id, level) VALUES (?, ?, ?, ?, ?);");
 
             statement.setInt(1, pokemon.getPokedexId());
             statement.setString(2, pokemon.getName());
             statement.setString(3, pokemon.getSprite());
             statement.setInt(4, pokemon.getUserId());
+            statement.setInt(5, 0);
 
             statement.executeUpdate();
         } catch (SQLException e) {
