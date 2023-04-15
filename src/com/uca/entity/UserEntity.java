@@ -73,24 +73,6 @@ public class UserEntity {
         this.exchange = exchange;
     }
 
-    public void resetNbPokemonXP(){
-
-        this.nbPokemonXP = 5;
-    }
-
-    public boolean canXP(){
-
-        return this.nbPokemonXP > 0;
-    }
-
-    public void useXP(){
-
-        if(canXP()){
-
-            this.nbPokemonXP--;
-        }
-    }
-
     public ExchangeEntity getExchange(int index){
 
         return this.exchange.get(index);
@@ -104,5 +86,13 @@ public class UserEntity {
     public LinkedList<PokemonEntity> getPokemon(){
 
         return this.pokemon;
+    }
+
+    public int getNbPokemonXP() {
+        return nbPokemonXP;
+    }
+
+    public void setNbPokemonXP(int nbPokemonXP) {
+        this.nbPokemonXP = nbPokemonXP;
     }
 }

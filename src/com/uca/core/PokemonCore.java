@@ -7,7 +7,6 @@ import com.uca.dao.PokemonDAO;
 import com.uca.entity.PokemonEntity;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PokemonCore {
@@ -20,11 +19,27 @@ public class PokemonCore {
 
         PokemonEntity pokemon = new PokemonEntity();
 
-        pokemon.setSprite(String.valueOf(json.get("front_default")));
+        pokemon.setSprite(String.valueOf(json.get("sprites").get("front_default")));
         pokemon.setPokedexId(id);
         pokemon.setName(String.valueOf(json.get("name")));
         pokemon.setUserId(user_id);
 
         new PokemonDAO().create(pokemon);
+    }
+
+    public static int getUserIdFromPokemon(int id){
+
+        return new PokemonDAO().getUserIdFromPokemon(id);
+    }
+
+    public static int lvlUp(int id, int user_id){
+
+        return new PokemonDAO().lvlUp(id, user_id);
+    }
+
+
+    public static int lvlUp(int id){
+
+        return new PokemonDAO().lvlUp(id);
     }
 }

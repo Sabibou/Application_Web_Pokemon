@@ -1,5 +1,6 @@
 package com.uca.dao;
 
+import com.uca.core.PokemonCore;
 import com.uca.entity.UserEntity;
 
 import java.sql.*;
@@ -17,6 +18,7 @@ public class UserDAO extends _Generic<UserEntity> {
                 entity.setId(resultSet.getInt("id"));
                 entity.setPseudo(resultSet.getString("pseudo"));
                 entity.setPassword(resultSet.getString("password"));
+                entity.setLastConnection(resultSet.getTimestamp("last_connection"));
 
                 entities.add(entity);
             }
@@ -69,6 +71,7 @@ public class UserDAO extends _Generic<UserEntity> {
             user.setPseudo(resultSet.getString("pseudo"));
             user.setLastConnection(new Timestamp(System.currentTimeMillis()));
             user.setPassword(resultSet.getString("password"));
+            user.setNbPokemonXP(resultSet.getInt("nb_pok_xp"));
 
             return user;
 
@@ -82,6 +85,42 @@ public class UserDAO extends _Generic<UserEntity> {
     public boolean verifyPassword(String password1, String password2){
 
         return password1.equals(password2);
+    }
+
+    public boolean canLvlUp(int user_id){
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT nb_pok_xp FROM joueur WHERE id=?");
+            preparedStatement.setInt(1, user_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            if(resultSet.getInt("nb_pok_xp") < 5){
+
+                return true;
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public int lvlUp(int user_id){
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE joueur set nb_pok_xp = nb_pok_xp + 1 WHERE id=?");
+            preparedStatement.setInt(1, user_id);
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 
     @Override
@@ -105,7 +144,7 @@ public class UserDAO extends _Generic<UserEntity> {
             user.setId(resultSet.getInt("id"));
 
             return user;
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

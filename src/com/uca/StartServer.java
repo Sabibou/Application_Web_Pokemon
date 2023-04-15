@@ -37,9 +37,9 @@ public class StartServer{
         post("/register", (req, res) -> {
 
             UserEntity user = UserCore.createNewUser(req.queryParams("username"), req.queryParams("userpwd"), new Timestamp(System.currentTimeMillis()));
-            PokemonCore.createNewPokemon(3, user.getId());
+            PokemonCore.createNewPokemon(1 + (int)(Math.random() * ((1000 - 1))), user.getId());
 
-            return null;
+            return UserGUI.getUserById(user.getId());
         });
 
         get("/login", (req, res) -> {
@@ -56,7 +56,7 @@ public class StartServer{
                 return "Mauvais nom d'utilisateur";
             }
             else{
-                if(UserCore.verifyPasword(user.getPassword(), req.queryParams("userpwd"))){
+                if(UserCore.verifyPassword(user.getPassword(), req.queryParams("userpwd"))){
 
                     return UserGUI.getUser(user);
                 }
@@ -71,6 +71,29 @@ public class StartServer{
 
             System.out.println("a" + Integer.parseInt(req.params("user_id")));
             return UserGUI.getUserById(Integer.parseInt(req.params("user_id")));
+        });
+
+        post("/:pokemon_id/lvl_up", (req, res) -> {
+            //int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt("pokemon_id"));
+            //System.out.println("userid=" + user_id);
+            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id"))) > 0){
+
+                //UserCore.lvlUp(user_id);
+            }
+
+            return null;
+        });
+
+        get("/:pokemon_id/lvl_up", (req, res) -> {
+
+            //int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt("pokemon_id"));
+            //System.out.println("userid=" + user_id);
+            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id"))) > 0){
+
+                //UserCore.lvlUp(user_id);
+            }
+
+            return null;
         });
     }
 }

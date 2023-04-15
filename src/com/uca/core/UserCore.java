@@ -28,10 +28,22 @@ public class UserCore {
         return new UserDAO().getUserByPseudo(pseudo);
     }
 
-    public static boolean verifyPasword(String pwd1, String pw2){
+    public static boolean verifyPassword(String pwd1, String pw2){
 
         return new UserDAO().verifyPassword(pwd1, pw2);
     }
+
+    public static boolean canLvlUp(int user_id){
+
+        return new UserDAO().canLvlUp(user_id);
+    }
+
+    public static int lvlUp(int user_id){
+
+        return new UserDAO().lvlUp(user_id);
+    }
+
+
 
 
 

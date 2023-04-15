@@ -81,4 +81,14 @@ public class PokemonEntity {
             this.level++;
         }
     }
+
+    public int getLevel(){
+
+        return this.level;
+    }
+
+    public void setLevel(int lvl){
+
+        this.level = lvl;
+    }
 }
