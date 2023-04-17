@@ -58,6 +58,16 @@ public class StartServer{
             else{
                 if(UserCore.verifyPassword(user.getPassword(), req.queryParams("userpwd"))){
 
+                    Timestamp newT = new Timestamp(System.currentTimeMillis());
+
+                    if(UserCore.isOtherDay(newT, user.getId())){
+
+                        PokemonCore.createNewPokemon(1 + (int)(Math.random() * ((1000 - 1))), user.getId());
+                        UserCore.resetNbXp(user.getId());
+                    }
+
+                    UserCore.setNewConnection(newT, user.getId());
+
                     return UserGUI.getUser(user);
                 }
                 else{
@@ -81,19 +91,8 @@ public class StartServer{
                 UserCore.lvlUp(user_id);
             }
 
-            return null;
+            return UserGUI.getUserById(user_id);
         });
 
-        get("/:pokemon_id/lvl_up", (req, res) -> {
-
-            int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt(req.params("pokemon_id")));
-            System.out.println("pok_id=" + req.params("pokemon_id"));
-            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id")), user_id) > 0){
-                System.out.println("lvlup");
-                UserCore.lvlUp(user_id);
-            }
-
-            return null;
-        });
     }
 }

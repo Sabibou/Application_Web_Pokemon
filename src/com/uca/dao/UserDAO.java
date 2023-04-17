@@ -153,6 +153,58 @@ public class UserDAO extends _Generic<UserEntity> {
         return null;
     }
 
+    public boolean isOtherDay(Timestamp newT, int user_id){
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT last_connection FROM joueur WHERE id=?");
+            preparedStatement.setInt(1, user_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            Timestamp oldT = resultSet.getTimestamp("last_connection");
+            System.out.println("new:" + newT);
+            System.out.println("old:" + oldT);
+            System.out.println(newT.getTime() - oldT.getTime());
+            if(newT.getTime() - oldT.getTime() > 8640000){  //24h en millisecondes
+
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public void setNewConnection(Timestamp newT, int user_id){
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE joueur SET last_connection=? WHERE id=?");
+            preparedStatement.setTimestamp(1, newT);
+            preparedStatement.setInt(2, user_id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void resetNbXp(int user_id){
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE joueur SET nb_pok_xp=0 WHERE id=?");
+            preparedStatement.setInt(1, user_id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void delete(UserEntity obj) {
         //TODO !

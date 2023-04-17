@@ -43,6 +43,21 @@ public class UserCore {
         return new UserDAO().lvlUp(user_id);
     }
 
+    public static boolean isOtherDay(Timestamp newT, int id){
+
+        return new UserDAO().isOtherDay(newT, id );
+    }
+
+    public static void setNewConnection(Timestamp newT, int user_id){
+
+        new UserDAO().setNewConnection(newT, user_id);
+    }
+
+    public static void resetNbXp(int user_id){
+
+        new UserDAO().resetNbXp(user_id);
+    }
+
 
 
 

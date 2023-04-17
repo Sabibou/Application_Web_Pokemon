@@ -10,6 +10,7 @@ ${main_user.pseudo}
         <li><a href="/${user.id}">${user.id} - ${user.pseudo} </a>
             ${user.lastConnection}
             ${user.nbPokemonXP}
+            ${user.password}
         </li>
     </#list>
 </ul>
