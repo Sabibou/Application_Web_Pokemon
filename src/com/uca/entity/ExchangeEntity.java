@@ -26,7 +26,7 @@ public class ExchangeEntity {
         this.id = id;
     }
 
-    public int getPokemonxId(){
+    public int getPokemonId(){
 
         return this.pokemonId;
     }
@@ -54,5 +54,10 @@ public class ExchangeEntity {
     public int getState(){
 
         return this.state;
+    }
+
+    public LinkedList<Integer> getPokemonWanted(){
+
+        return pokemonWanted;
     }
 }

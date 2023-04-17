@@ -26,7 +26,10 @@ POST /pokemon-id/lvl-up
 GET /pokemon-id
 
 Creer un echange :
-POST /echanges
+POST /echanges/add
+
+Supprimer un échange :
+POST /echanges/echange-id/delete
 
 Acceder à la page des échanges :
 GET /echanges
@@ -35,4 +38,11 @@ Acceder à une page d'échange en particulier :
 GET /echange-id
 
 Valider un échange :
-GET /echange-id
+POST /echange-id
+
+Ajouter pokemon voulu à un echange :
+POST /echange-id/add/pokedex-id
+
+Supprimer pokemon d'un echange :
+POST /echange-id/delete/pokedex-id
+
