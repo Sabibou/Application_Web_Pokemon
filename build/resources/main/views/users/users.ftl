@@ -19,10 +19,10 @@ ${main_user.pseudo}
         <#list pokemons as pokemon>
                 <li>user id : ${pokemon.userId}
                     id : ${pokemon.id}
-                    name : ${pokemon.name}
+                    <a href="/pokemon/${pokemon.id}">name : ${pokemon.name}</a>
                     level : ${pokemon.level}
                     sprite : <img src=${pokemon.sprite}>
-                    <form action="/${pokemon.id}/lvl_up" method="post">
+                    <form action="/pokemon/${pokemon.id}/lvl_up" method="post">
                         <input type="submit" value="Lvl Up">
                     </form>
                 </li>

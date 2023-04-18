@@ -1,8 +1,12 @@
 package com.uca;
 
+import com.uca.core.ExchangeCore;
+import com.uca.core.ExchangeWantedCore;
 import com.uca.core.PokemonCore;
 import com.uca.core.UserCore;
 import com.uca.dao._Initializer;
+import com.uca.entity.ExchangeEntity;
+import com.uca.entity.ExchangeWantedEntity;
 import com.uca.entity.UserEntity;
 import com.uca.gui.*;
 
@@ -39,7 +43,8 @@ public class StartServer{
             UserEntity user = UserCore.createNewUser(req.queryParams("username"), req.queryParams("userpwd"), new Timestamp(System.currentTimeMillis()));
             PokemonCore.createNewPokemon(1 + (int)(Math.random() * ((1000 - 1))), user.getId());
 
-            return UserGUI.getUserById(user.getId());
+            res.redirect("/" + user.getId());
+            return null;
         });
 
         get("/login", (req, res) -> {
@@ -68,7 +73,9 @@ public class StartServer{
 
                     UserCore.setNewConnection(newT, user.getId());
 
-                    return UserGUI.getUser(user);
+                    //return UserGUI.getUser(user);
+                    res.redirect("/" + user.getId());
+                    return null;
                 }
                 else{
 
@@ -83,15 +90,37 @@ public class StartServer{
             return UserGUI.getUserById(Integer.parseInt(req.params("user_id")));
         });
 
-        post("/:pokemon_id/lvl_up", (req, res) -> {
+        post("/pokemon/:pokemon_id/lvl_up", (req, res) -> {
             int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt(req.params("pokemon_id")));
-            System.out.println("pok_id=" + req.params("pokemon_id"));
+
             if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id")), user_id) > 0){
-                System.out.println("lvlup");
+
                 UserCore.lvlUp(user_id);
             }
 
             return UserGUI.getUserById(user_id);
+        });
+
+        get("/pokemon/:pokemon_id", (req, res) -> {
+
+            return PokemonGUI.getPokemonById(Integer.parseInt(req.params("pokemon_id")));
+        });
+
+        post("/echanges/:pokemon_id/add", (req, res) -> {
+
+            ExchangeEntity exchange = new ExchangeEntity();
+
+            exchange.setPokemonId(Integer.parseInt(req.params("pokemon_id")));
+            exchange.setDate(new Timestamp(System.currentTimeMillis()));
+
+            exchange = ExchangeCore.create(exchange);
+
+            ExchangeWantedEntity e = new ExchangeWantedEntity(exchange.getId(), Integer.parseInt(req.queryParams("pokemonId")));
+
+            ExchangeWantedCore.create(e);
+
+            res.redirect("/pokemon/" + req.params("pokemon_id"));
+            return null;
         });
 
     }

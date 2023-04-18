@@ -20,13 +20,13 @@ Avoir la liste de pokemon :
 GET /user-id/pokemon-list
 
 Augmenter le nv d'un pokemon :
-POST /pokemon-id/lvl-up
+POST /pokemon/pokemon-id/lvl-up
 
-?Acceder à la page d'un pokemon :
-GET /pokemon-id
+Acceder à la page d'un pokemon :
+GET /pokemon/pokemon-id
 
 Creer un echange :
-POST /echanges/add
+POST /echanges/pokemon_id/add
 
 Supprimer un échange :
 POST /echanges/echange-id/delete
@@ -35,14 +35,14 @@ Acceder à la page des échanges :
 GET /echanges
 
 Acceder à une page d'échange en particulier :
-GET /echange-id
+GET /echanges/echange-id
 
 Valider un échange :
-POST /echange-id
+POST /echanges/echange-id
 
 Ajouter pokemon voulu à un echange :
-POST /echange-id/add/pokedex-id
+POST /echanges/echange-id/add/pokedex-id
 
 Supprimer pokemon d'un echange :
-POST /echange-id/delete/pokedex-id
+POST /echanges/echange-id/delete/pokedex-id
 

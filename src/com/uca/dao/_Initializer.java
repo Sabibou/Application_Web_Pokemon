@@ -17,7 +17,7 @@ public class _Initializer {
             statement.executeUpdate();
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS echange (id int primary key auto_increment, date timestamp DEFAULT CURRENT_TIMESTAMP, state int DEFAULT 0, pokemon_id int not null, foreign key (pokemon_id) references pokemon(id)); ");
             statement.executeUpdate();
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS echangeVoulu (id_echange int primary key, id_pokedex int, foreign key (id_echange) references echange(id)); ");
+            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS echangeVoulu (id_echange int, id_pokedex int, primary key(id_echange, id_pokedex), foreign key (id_echange) references echange(id)); ");
             statement.executeUpdate();
 
             //Todo Remove me !

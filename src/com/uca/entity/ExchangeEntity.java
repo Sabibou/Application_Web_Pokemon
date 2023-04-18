@@ -8,7 +8,7 @@ public class ExchangeEntity {
     private int id;
     private int pokemonId;
     private Timestamp date;
-    private LinkedList<Integer> pokemonWanted;
+    private LinkedList<ExchangeWantedEntity> pokemonWanted;
     private int state; //0:en attente 1:accepté -1:annulé 
 
     public ExchangeEntity(){
@@ -56,8 +56,17 @@ public class ExchangeEntity {
         return this.state;
     }
 
-    public LinkedList<Integer> getPokemonWanted(){
+    public LinkedList<ExchangeWantedEntity> getPokemonWanted(){
 
         return pokemonWanted;
+    }
+
+    public void addPokemonWanted(ExchangeWantedEntity exchangeWanted){
+
+        this.pokemonWanted.add(exchangeWanted);
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 }

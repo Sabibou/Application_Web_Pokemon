@@ -32,6 +32,11 @@ public class PokemonCore {
         new PokemonDAO().create(pokemon);
     }
 
+    public static PokemonEntity getPokemonById(int id){
+
+        return new PokemonDAO().getPokemonById(id);
+    }
+
     public static int getUserIdFromPokemon(int id){
 
         return new PokemonDAO().getUserIdFromPokemon(id);
