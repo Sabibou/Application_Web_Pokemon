@@ -6,9 +6,9 @@ import java.util.LinkedList;
 public class ExchangeEntity {
     
     private int id;
-    private int pokemonId;
+    private PokemonEntity pokemon;
     private Timestamp date;
-    private LinkedList<ExchangeWantedEntity> pokemonWanted;
+    private LinkedList<PokemonEntity> pokemonWanted;
     private int state; //0:en attente 1:accepté -1:annulé 
 
     public ExchangeEntity(){
@@ -26,14 +26,12 @@ public class ExchangeEntity {
         this.id = id;
     }
 
-    public int getPokemonId(){
-
-        return this.pokemonId;
+    public PokemonEntity getPokemon() {
+        return pokemon;
     }
 
-    public void setPokemonId(int id){
-
-        this.pokemonId = id;
+    public void setPokemon(PokemonEntity pokemon) {
+        this.pokemon = pokemon;
     }
 
     public Timestamp getDate(){
@@ -56,17 +54,24 @@ public class ExchangeEntity {
         return this.state;
     }
 
-    public LinkedList<ExchangeWantedEntity> getPokemonWanted(){
-
-        return pokemonWanted;
+    public void setState(int state) {
+        this.state = state;
     }
 
-    public void addPokemonWanted(ExchangeWantedEntity exchangeWanted){
+    public void addPokemonWanted(PokemonEntity pokemon){
 
-        this.pokemonWanted.add(exchangeWanted);
+        this.pokemonWanted.add(pokemon);
     }
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public LinkedList<PokemonEntity> getPokemonWanted() {
+        return pokemonWanted;
+    }
+
+    public void setPokemonWanted(LinkedList<PokemonEntity> pokemonWanted) {
+        this.pokemonWanted = pokemonWanted;
     }
 }

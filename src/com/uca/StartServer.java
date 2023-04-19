@@ -110,12 +110,12 @@ public class StartServer{
 
             ExchangeEntity exchange = new ExchangeEntity();
 
-            exchange.setPokemonId(Integer.parseInt(req.params("pokemon_id")));
+            exchange.setPokemon(PokemonCore.getPokemonById(Integer.parseInt(req.params("pokemon_id"))));
             exchange.setDate(new Timestamp(System.currentTimeMillis()));
 
             exchange = ExchangeCore.create(exchange);
 
-            ExchangeWantedEntity e = new ExchangeWantedEntity(exchange.getId(), Integer.parseInt(req.queryParams("pokemonId")));
+            ExchangeWantedEntity e = new ExchangeWantedEntity(exchange.getId(), PokemonCore.getPokemonById(Integer.parseInt(req.params("pokemon_id"))));
 
             ExchangeWantedCore.create(e);
 

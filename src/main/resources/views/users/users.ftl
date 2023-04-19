@@ -29,6 +29,15 @@ ${main_user.pseudo}
         </#list>
 </ul>
 
+<ul>
+    <#list exchanges as exchange>
+        <li>echange id : ${exchange.id}
+            pokedex_id : ${exchange.pokemon.pokedexId}
+            sprite : <img src=${exchange.pokemon.sprite}>
+        </li>
+    </#list>
+</ul>
+
 </body>
 
 </html>

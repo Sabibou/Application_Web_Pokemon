@@ -1,5 +1,6 @@
 package com.uca.gui;
 
+import com.uca.core.ExchangeCore;
 import com.uca.core.UserCore;
 import com.uca.entity.UserEntity;
 import freemarker.template.Configuration;
@@ -62,6 +63,7 @@ public class UserGUI {
         input.put("users", UserCore.getAllUsers());
         input.put("main_user", user);
         input.put("pokemons", user.getPokemon());
+        input.put("exchanges", ExchangeCore.getAllExchangesStartedByUser(user.getPokemon()));
 
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/users.ftl");

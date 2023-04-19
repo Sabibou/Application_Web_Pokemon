@@ -3,12 +3,12 @@ package com.uca.entity;
 public class ExchangeWantedEntity {
 
     private int id;
-    private int pokedexId;
+    private PokemonEntity pokemon;
 
-    public ExchangeWantedEntity(int id, int pokedexId){
+    public ExchangeWantedEntity(int id, PokemonEntity pokemon){
 
         this.id = id;
-        this.pokedexId = pokedexId;
+        this.pokemon = pokemon;
     }
     public int getId() {
         return id;
@@ -18,11 +18,11 @@ public class ExchangeWantedEntity {
         this.id = id;
     }
 
-    public int getPokedexId() {
-        return pokedexId;
+    public PokemonEntity getPokemon() {
+        return pokemon;
     }
 
-    public void setPokedexId(int pokedexId) {
-        this.pokedexId = pokedexId;
+    public void setPokemon(PokemonEntity pokemon) {
+        this.pokemon = pokemon;
     }
 }
