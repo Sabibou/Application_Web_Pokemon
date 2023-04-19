@@ -90,6 +90,32 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
         return exchange;
     }
 
+    public ExchangeEntity getExchangeFromId(int id){
+
+        ExchangeEntity exchange = new ExchangeEntity();
+
+        try {
+
+
+            PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE id=?;");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+
+            exchange.setPokemon(PokemonCore.getPokemonById(resultSet.getInt("pokemon_id")));
+            exchange.setId(id);
+            exchange.setDate(resultSet.getTimestamp("date"));
+            exchange.setState(resultSet.getInt("state"));
+            exchange.setPokemonWanted(ExchangeWantedCore.getAllPokemonWanted(id));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exchange;
+    }
+
     public LinkedList<ExchangeEntity> getAllExchangesStartedByUser(LinkedList<PokemonEntity> pokemonList){
 
         LinkedList<ExchangeEntity> exchangeList = new LinkedList<>();

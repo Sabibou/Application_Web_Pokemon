@@ -9,12 +9,22 @@ import com.uca.entity.ExchangeEntity;
 import com.uca.entity.ExchangeWantedEntity;
 import com.uca.entity.UserEntity;
 import com.uca.gui.*;
+import spark.Request;
+import spark.Response;
 
 import java.sql.Timestamp;
 
 import static spark.Spark.*;
 
 public class StartServer{
+
+    public static void isConnected(Request req, Response res){
+
+        if(!req.cookies().containsKey("USER_ID")){
+
+            res.redirect("/login");
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -27,8 +37,12 @@ public class StartServer{
 
         _Initializer.Init();
 
+
         //Defining our routes
         get("/users", (req, res) -> {
+
+            StartServer.isConnected(req, res);
+            
             return UserGUI.getAllUsers();
         });
 
@@ -56,6 +70,7 @@ public class StartServer{
         post("/login", (req, res) -> {
 
             UserEntity user = UserCore.getUserByPseudo(req.queryParams("username"));
+
             if(user == null){
 
                 return "Mauvais nom d'utilisateur";
@@ -74,6 +89,7 @@ public class StartServer{
                     UserCore.setNewConnection(newT, user.getId());
 
                     //return UserGUI.getUser(user);
+                    res.cookie("USER_ID", Integer.toString(user.getId()),1000, true);
                     res.redirect("/" + user.getId());
                     return null;
                 }
@@ -86,11 +102,15 @@ public class StartServer{
 
         get("/:user_id", (req, res) -> {
 
-            System.out.println("a" + Integer.parseInt(req.params("user_id")));
+            StartServer.isConnected(req, res);
+
             return UserGUI.getUserById(Integer.parseInt(req.params("user_id")));
         });
 
         post("/pokemon/:pokemon_id/lvl_up", (req, res) -> {
+
+            StartServer.isConnected(req, res);
+
             int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt(req.params("pokemon_id")));
 
             if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id")), user_id) > 0){
@@ -103,10 +123,13 @@ public class StartServer{
 
         get("/pokemon/:pokemon_id", (req, res) -> {
 
+            StartServer.isConnected(req, res);
             return PokemonGUI.getPokemonById(Integer.parseInt(req.params("pokemon_id")));
         });
 
         post("/echanges/:pokemon_id/add", (req, res) -> {
+
+            StartServer.isConnected(req, res);
 
             ExchangeEntity exchange = new ExchangeEntity();
 
@@ -115,12 +138,18 @@ public class StartServer{
 
             exchange = ExchangeCore.create(exchange);
 
-            ExchangeWantedEntity e = new ExchangeWantedEntity(exchange.getId(), PokemonCore.getPokemonById(Integer.parseInt(req.params("pokemon_id"))));
+            ExchangeWantedEntity e = new ExchangeWantedEntity(exchange.getId(), PokemonCore.getPokemonFromAPIByName(req.queryParams("pokemonName")));
 
             ExchangeWantedCore.create(e);
 
             res.redirect("/pokemon/" + req.params("pokemon_id"));
             return null;
+        });
+
+        get("/echanges/:echange_id", (req, res) -> {
+
+            StartServer.isConnected(req, res);
+            return ExchangeGUI.getExchangeById(Integer.parseInt(req.params("echange_id")));
         });
 
     }

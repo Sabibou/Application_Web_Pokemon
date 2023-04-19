@@ -17,7 +17,7 @@ public class PokemonCore {
         return new PokemonDAO().getAllPokemonByUser(user_id);
     }
 
-    private static PokemonEntity getPokemonFromAPI(int pokedexId) throws IOException {
+    public static PokemonEntity getPokemonFromAPIById(int pokedexId) throws IOException {
 
         URL url = new URL("https://pokeapi.co/api/v2/pokemon-form/" + pokedexId);
         ObjectMapper mapper = new ObjectMapper();
@@ -31,9 +31,24 @@ public class PokemonCore {
 
         return pokemon;
     }
+
+    public static PokemonEntity getPokemonFromAPIByName(String name) throws IOException {
+
+        URL url = new URL("https://pokeapi.co/api/v2/pokemon-form/" + name);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(url);
+
+        PokemonEntity pokemon = new PokemonEntity();
+
+        pokemon.setSprite(String.valueOf(json.get("sprites").get("front_default")));
+        pokemon.setPokedexId(Integer.parseInt(String.valueOf(json.get("id"))));
+        pokemon.setName(name);
+
+        return pokemon;
+    }
     public static void createNewPokemon(int pokedexId, int user_id) throws IOException {
 
-        PokemonEntity pokemon = PokemonCore.getPokemonFromAPI(pokedexId);
+        PokemonEntity pokemon = PokemonCore.getPokemonFromAPIById(pokedexId);
         pokemon.setUserId(user_id);
 
         new PokemonDAO().create(pokemon);
@@ -41,7 +56,7 @@ public class PokemonCore {
 
     public static PokemonEntity getPokemonByPokedexId(int pokedexId) throws IOException {
 
-        return PokemonCore.getPokemonFromAPI(pokedexId);
+        return PokemonCore.getPokemonFromAPIById(pokedexId);
     }
 
     public static PokemonEntity getPokemonById(int id){
