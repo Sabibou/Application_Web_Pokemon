@@ -7,6 +7,7 @@ import com.uca.dao.PokemonDAO;
 import com.uca.entity.PokemonEntity;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 
@@ -46,17 +47,29 @@ public class PokemonCore {
 
         return pokemon;
     }
+
+    public static void isEvolving(int pokedex_id, int id, int level) throws IOException {
+
+        URL url = new URL("https://pokeapi.co/api/v2/pokemon-species/" + (pokedex_id+1));
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(url);
+
+        PokemonEntity pokemon = PokemonCore.getPokemonFromAPIById(pokedex_id);
+
+        int levelToGet = pokemon.getLevel() > 15 ? 30 : 15;
+
+        if(String.valueOf(json.get("evolves_from_species").get("name")).equals(pokemon.getName()) && level >= levelToGet){
+
+            pokemon = PokemonCore.getPokemonFromAPIById(pokedex_id+1);
+            new PokemonDAO().evolve(pokemon, id);
+        }
+    }
     public static void createNewPokemon(int pokedexId, int user_id) throws IOException {
 
         PokemonEntity pokemon = PokemonCore.getPokemonFromAPIById(pokedexId);
         pokemon.setUserId(user_id);
 
         new PokemonDAO().create(pokemon);
-    }
-
-    public static PokemonEntity getPokemonByPokedexId(int pokedexId) throws IOException {
-
-        return PokemonCore.getPokemonFromAPIById(pokedexId);
     }
 
     public static PokemonEntity getPokemonById(int id){

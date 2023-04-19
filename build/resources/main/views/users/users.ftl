@@ -23,6 +23,7 @@ ${main_user.pseudo}
         <#list pokemons as pokemon>
                 <li>user id : ${pokemon.userId}
                     id : ${pokemon.id}
+                    pokedex id : ${pokemon.pokedexId}
                     <a href="/pokemon/${pokemon.id}">name : ${pokemon.name}</a>
                     level : ${pokemon.level}
                     sprite : <img src=${pokemon.sprite}>
@@ -44,6 +45,9 @@ ${main_user.pseudo}
     </#list>
 </ul>
 
+<a href="/echanges/all">Voir tous les échanges</a>
+
+<a href="/disconnect">Se déconnecter</a>
 </body>
 
 </html>

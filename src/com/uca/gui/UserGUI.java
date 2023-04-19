@@ -48,7 +48,7 @@ public class UserGUI {
         return output.toString();
     }
 
-    public static String getUserById(int id) throws IOException, TemplateException {
+    public static String getUserById(int mainId, int id) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
@@ -61,7 +61,7 @@ public class UserGUI {
         }
 
         input.put("users", UserCore.getAllUsers());
-        input.put("main_user", user);
+        input.put("main_user", UserCore.getUserById(mainId));
         input.put("pokemons", user.getPokemon());
         input.put("exchanges", ExchangeCore.getAllExchangesStartedByUser(user.getPokemon()));
 

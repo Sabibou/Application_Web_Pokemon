@@ -12,14 +12,15 @@ id : ${pokemon.id}
 name : ${pokemon.name}
 level : ${pokemon.level}
 sprite : <img src=${pokemon.sprite}>
-<#if !isExchangeable>
+<#if !isExchangeable && main_user.id == pokemon.userId>
 
     <form action="/echanges/${pokemon.id}/add" method="post">
         <input type="text" name="pokemonName" id="pokemonName">
         <input type="submit" value="Envoyer">
     </form>
-<#else>
+<#elseif main_user.id == pokemon.userId>
     Pokemon déjà sur le marché
+<#else>
 </#if>
 
 

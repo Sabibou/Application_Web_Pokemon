@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class PokemonGUI {
 
-    public static String getPokemonById(int id) throws IOException, TemplateException {
+    public static String getPokemonById(int mainUserId, int id) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
@@ -30,7 +30,7 @@ public class PokemonGUI {
         }
 
         input.put("users", UserCore.getAllUsers());
-        input.put("main_user", UserCore.getUserById(pokemon.getUserId()));
+        input.put("main_user", UserCore.getUserById(mainUserId));
         input.put("pokemon", pokemon);
         input.put("isExchangeable", ExchangeCore.isPokemonExchangeable(pokemon.getId()));
 

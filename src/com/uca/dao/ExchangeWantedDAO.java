@@ -42,7 +42,7 @@ public class ExchangeWantedDAO extends _Generic<ExchangeWantedEntity>{
 
             while(resultSet.next()){
 
-                PokemonEntity pokemon = PokemonCore.getPokemonByPokedexId(resultSet.getInt("id_pokedex"));
+                PokemonEntity pokemon = PokemonCore.getPokemonFromAPIById(resultSet.getInt("id_pokedex"));
                 pokemonList.add(pokemon);
             }
 
@@ -59,5 +59,13 @@ public class ExchangeWantedDAO extends _Generic<ExchangeWantedEntity>{
     @Override
     public void delete(ExchangeWantedEntity obj) {
 
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("DELETE FROM echangeVoulu;");
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

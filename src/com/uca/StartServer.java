@@ -7,6 +7,7 @@ import com.uca.core.UserCore;
 import com.uca.dao._Initializer;
 import com.uca.entity.ExchangeEntity;
 import com.uca.entity.ExchangeWantedEntity;
+import com.uca.entity.PokemonEntity;
 import com.uca.entity.UserEntity;
 import com.uca.gui.*;
 import spark.Request;
@@ -42,7 +43,7 @@ public class StartServer{
         get("/users", (req, res) -> {
 
             StartServer.isConnected(req, res);
-            
+
             return UserGUI.getAllUsers();
         });
 
@@ -104,27 +105,29 @@ public class StartServer{
 
             StartServer.isConnected(req, res);
 
-            return UserGUI.getUserById(Integer.parseInt(req.params("user_id")));
+            return UserGUI.getUserById(Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("user_id")));
         });
 
         post("/pokemon/:pokemon_id/lvl_up", (req, res) -> {
 
             StartServer.isConnected(req, res);
 
-            int user_id = PokemonCore.getUserIdFromPokemon(Integer.parseInt(req.params("pokemon_id")));
+            PokemonEntity pokemon = PokemonCore.getPokemonById(Integer.parseInt(req.params("pokemon_id")));
 
-            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id")), user_id) > 0){
+            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id")), pokemon.getUserId()) > 0){
 
-                UserCore.lvlUp(user_id);
+                    UserCore.lvlUp(pokemon.getUserId());
+                    PokemonCore.isEvolving(pokemon.getPokedexId(), pokemon.getId(), pokemon.getLevel());
+
             }
 
-            return UserGUI.getUserById(user_id);
+            return UserGUI.getUserById(Integer.parseInt(req.cookie("USER_ID")), pokemon.getUserId());
         });
 
         get("/pokemon/:pokemon_id", (req, res) -> {
 
             StartServer.isConnected(req, res);
-            return PokemonGUI.getPokemonById(Integer.parseInt(req.params("pokemon_id")));
+            return PokemonGUI.getPokemonById(Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("pokemon_id")));
         });
 
         post("/echanges/:pokemon_id/add", (req, res) -> {
@@ -146,10 +149,35 @@ public class StartServer{
             return null;
         });
 
+        get("/echanges/all", (req, res) -> {
+
+            System.out.println("echange");
+            StartServer.isConnected(req, res);
+            return ExchangeGUI.getAllExchanges(Integer.parseInt(req.cookie("USER_ID")));
+        });
+
         get("/echanges/:echange_id", (req, res) -> {
 
             StartServer.isConnected(req, res);
-            return ExchangeGUI.getExchangeById(Integer.parseInt(req.params("echange_id")));
+            return ExchangeGUI.getExchangeById(Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("echange_id")));
+        });
+
+        get("/echanges/delete/all", (req, res) -> {
+
+            ExchangeWantedCore.delete(null);
+            ExchangeCore.delete(null);
+            return null;
+        });
+
+        get("/disconnect", (req, res) -> {
+            System.out.println("cookie");
+            if(req.cookies().containsKey("USER_ID")){
+
+                System.out.println("cookie");
+                res.removeCookie("USER_ID");
+            }
+            res.redirect("/login");
+            return null;
         });
 
     }

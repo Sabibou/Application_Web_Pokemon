@@ -69,6 +69,7 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
         try{
 
             if(UserCore.canLvlUp(user_id)){
+
                 System.out.println("canLvl");
                 PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE pokemon SET level=level+1 WHERE id=?;");
                 preparedStatement.setInt(1, id);
@@ -102,6 +103,21 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
         return -1;
     }
 
+    public void evolve(PokemonEntity pokemon, int pokemon_id){
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE pokemon SET name=?, id_pokedex=?, sprite=? WHERE id=?;");
+            preparedStatement.setString(1, pokemon.getName());
+            preparedStatement.setInt(2, pokemon.getPokedexId());
+            preparedStatement.setString(3, pokemon.getSprite());
+            preparedStatement.setInt(4, pokemon_id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public PokemonEntity create(PokemonEntity pokemon){
 

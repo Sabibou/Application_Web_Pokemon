@@ -19,4 +19,9 @@ public class ExchangeWantedCore {
 
         return new ExchangeWantedDAO().getAllPokemonWanted(exchange_id);
     }
+
+    public static void delete(ExchangeWantedEntity obj){
+
+        new ExchangeWantedDAO().delete(obj);
+    }
 }

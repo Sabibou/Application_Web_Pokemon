@@ -39,4 +39,9 @@ public class ExchangeCore {
 
         return new ExchangeDAO().isPokemonExchangeable(pokemonId);
     }
+
+    public static void delete(ExchangeEntity obj){
+
+        new ExchangeDAO().delete(obj);
+    }
 }
