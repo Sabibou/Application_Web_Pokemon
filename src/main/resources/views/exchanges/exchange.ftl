@@ -22,9 +22,28 @@ sprite : <img src=${pokemon.sprite}>
             <a href="/pokemon/${pokemonWanted.id}">name : ${pokemonWanted.name}</a>
             level : ${pokemonWanted.level}
             sprite : <img src=${pokemonWanted.sprite}>
+            <#if main_user.id != pokemon.userId && pokemonWanted.id != -1>
+                <form action="/echanges/${exchange.id}/accept/${pokemonWanted.id}" method="post">
+                    <input type="submit" value="Echanger">
+                </form>
+            </#if>
         </li>
     </#list>
 </ul>
+
+<#if main_user.id == exchange.pokemon.userId>
+    <div>
+        Ajouter pokemon voulu :
+        <form action="/echanges/${exchange.id}/add" method="post">
+            <input type="text" name="pokemonName" id="pokemonName">
+            <input type="submit" value="Ajouter">
+        </form>
+    </div>
+    Annuler l'échange :
+    <form action="/echanges/${exchange.id}/cancel" method="post">
+        <input type="submit" value="Cancel">
+    </form>
+</#if>
 
 </body>
 

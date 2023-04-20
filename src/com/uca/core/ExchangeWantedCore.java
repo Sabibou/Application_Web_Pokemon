@@ -2,6 +2,7 @@ package com.uca.core;
 
 
 import com.uca.dao.ExchangeWantedDAO;
+import com.uca.dao.PokemonDAO;
 import com.uca.entity.ExchangeEntity;
 import com.uca.entity.ExchangeWantedEntity;
 import com.uca.entity.PokemonEntity;

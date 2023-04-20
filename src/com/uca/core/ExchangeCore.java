@@ -44,4 +44,24 @@ public class ExchangeCore {
 
         new ExchangeDAO().delete(obj);
     }
+
+    public static void cancelExchange(int id){
+
+        new ExchangeDAO().cancelExchange(id);
+    }
+
+    public static int getUserIdFromExchange(int id){
+
+        return new ExchangeDAO().getUserIdFromExchange(id);
+    }
+
+    public static int getPokemonIdFromExchange(int id){
+
+        return new ExchangeDAO().getPokemonIdFromExchange(id);
+    }
+
+    public static void acceptExchange(int id, int userId, int pokemonId){
+
+        new ExchangeDAO().acceptExchange(id, userId, pokemonId);
+    }
 }

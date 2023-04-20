@@ -87,5 +87,10 @@ public class PokemonCore {
         return new PokemonDAO().lvlUp(id, user_id);
     }
 
+    public static void changeUser(int pokemonId, int newUserId){
+
+        new PokemonDAO().changeUser(pokemonId, newUserId);
+    }
+
 
 }

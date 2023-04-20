@@ -5,7 +5,7 @@
 ${main_user.id}
 ${main_user.pseudo}
 
-<h2>Utilisateurs</h2>
+<h2>Autres Utilisateurs</h2>
 
 <ul>
     <#list users as user>
@@ -17,7 +17,7 @@ ${main_user.pseudo}
     </#list>
 </ul>
 
-<h2>Pokemons</h2>
+<h2>Mes Pokemons</h2>
 
 <ul>
         <#list pokemons as pokemon>
@@ -34,7 +34,7 @@ ${main_user.pseudo}
         </#list>
 </ul>
 
-<h2>Echanges</h2>
+<h2>Mes Echanges</h2>
 
 <ul>
     <#list exchanges as exchange>

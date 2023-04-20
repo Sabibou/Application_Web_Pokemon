@@ -26,10 +26,13 @@ Acceder à la page d'un pokemon :
 GET /pokemon/pokemon-id
 
 Creer un echange :
-POST /echanges/pokemon_id/add
+POST /echanges/add/pokemon_id
 
 Supprimer un échange :
 POST /echanges/echange-id/delete
+
+Annuler un échange :
+POST /echanges/echange-id/cancel
 
 Acceder à la page des échanges :
 GET /echanges
@@ -37,11 +40,11 @@ GET /echanges
 Acceder à une page d'échange en particulier :
 GET /echanges/echange-id
 
-Valider un échange :
-POST /echanges/echange-id
+Accepter un échange :
+POST /echanges/echange-id/accept/pokemon-id
 
 Ajouter pokemon voulu à un echange :
-POST /echanges/echange-id/add/pokedex-id
+POST /echanges/echange-id/add
 
 Supprimer pokemon d'un echange :
 POST /echanges/echange-id/delete/pokedex-id

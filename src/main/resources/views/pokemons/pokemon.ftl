@@ -14,7 +14,7 @@ level : ${pokemon.level}
 sprite : <img src=${pokemon.sprite}>
 <#if !isExchangeable && main_user.id == pokemon.userId>
 
-    <form action="/echanges/${pokemon.id}/add" method="post">
+    <form action="/echanges/add/${pokemon.id}" method="post">
         <input type="text" name="pokemonName" id="pokemonName">
         <input type="submit" value="Envoyer">
     </form>

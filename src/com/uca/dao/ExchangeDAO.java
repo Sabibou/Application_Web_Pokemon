@@ -23,7 +23,7 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
             statement.executeUpdate();
 
 
-            statement = this.connect.prepareStatement("SELECT id FROM echange WHERE pokemon_id=?;");
+            statement = this.connect.prepareStatement("SELECT id FROM echange WHERE pokemon_id=? AND state=0;");
 
             statement.setInt(1, exchange.getPokemon().getId());
 
@@ -56,7 +56,7 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
     public boolean isPokemonExchangeable(int pokemon_id){
 
         try {
-            PreparedStatement statement = this.connect.prepareStatement("SELECT id FROM echange WHERE pokemon_id=?;");
+            PreparedStatement statement = this.connect.prepareStatement("SELECT id FROM echange WHERE pokemon_id=? AND state=0;");
 
             statement.setInt(1, pokemon_id);
 
@@ -79,7 +79,7 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
         try {
 
 
-            PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE pokemon_id=?;");
+            PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE pokemon_id=? AND state=0;");
             statement.setInt(1, pokemon_id);
             ResultSet resultSet = statement.executeQuery();
 
@@ -105,7 +105,7 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
         try {
 
 
-            PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE id=?;");
+            PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE id=? AND state=0;");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
@@ -134,7 +134,7 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
 
                 if(this.isPokemonExchangeable(pokemon.getId())){
 
-                    PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE pokemon_id=?;");
+                    PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE pokemon_id=? AND state=0;");
                     statement.setInt(1, pokemon.getId());
                     ResultSet resultSet = statement.executeQuery();
 
@@ -159,7 +159,7 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
 
         try {
 
-            PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange;");
+            PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE state=0;");
             ResultSet resultSet = statement.executeQuery();
             int i=0;
             while(resultSet.next()) {
@@ -188,5 +188,86 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
         }
 
         return exchangeList;
+    }
+
+    public int getUserIdFromExchange(int id){
+
+        int userId = -1;
+
+        try {
+
+
+            PreparedStatement statement = this.connect.prepareStatement("SELECT pokemon_id FROM echange WHERE id=? AND state=0;");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+
+            userId = PokemonCore.getUserIdFromPokemon(resultSet.getInt("pokemon_id"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userId;
+    }
+
+    public int getPokemonIdFromExchange(int id){
+
+        try {
+
+
+            PreparedStatement statement = this.connect.prepareStatement("SELECT pokemon_id FROM echange WHERE id=? AND state=0;");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+
+            return resultSet.getInt("pokemon_id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    public void cancelExchange(int id){
+
+        try {
+
+
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE echange SET state=-1 WHERE id=?;");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void acceptExchange(int id, int userId, int pokemonId){
+
+        try {
+
+            PreparedStatement statement = this.connect.prepareStatement("SELECT pokemon_id FROM echange WHERE id=? AND state=0;");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+
+            int userId2 = PokemonCore.getUserIdFromPokemon(resultSet.getInt("pokemon_id"));
+            System.out.println("userId2: " + userId2);
+            System.out.println("pokemonId: " + pokemonId);
+            PokemonCore.changeUser(resultSet.getInt("pokemon_id"), userId);
+            PokemonCore.changeUser(pokemonId, userId2);
+
+            statement = this.connect.prepareStatement("UPDATE echange SET state=1 WHERE id=?;");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

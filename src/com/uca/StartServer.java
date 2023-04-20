@@ -130,7 +130,7 @@ public class StartServer{
             return PokemonGUI.getPokemonById(Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("pokemon_id")));
         });
 
-        post("/echanges/:pokemon_id/add", (req, res) -> {
+        post("/echanges/add/:pokemon_id", (req, res) -> {
 
             StartServer.isConnected(req, res);
 
@@ -177,6 +177,40 @@ public class StartServer{
                 res.removeCookie("USER_ID");
             }
             res.redirect("/login");
+            return null;
+        });
+
+        post("/echanges/:echange_id/cancel", (req, res) -> {
+
+            StartServer.isConnected(req, res);
+
+            ExchangeCore.cancelExchange(Integer.parseInt(req.params("echange_id")));
+
+            res.redirect("/" + req.cookie("USER_ID"));
+            return null;
+        });
+
+        post("/echanges/:echange_id/add", (req, res) -> {
+
+            StartServer.isConnected(req, res);
+
+            ExchangeWantedEntity e = new ExchangeWantedEntity(Integer.parseInt(req.params("echange_id")), PokemonCore.getPokemonFromAPIByName(req.queryParams("pokemonName")));
+
+            ExchangeWantedCore.create(e);
+
+            res.redirect("/echanges/" + req.params("echange_id"));
+            return null;
+        });
+
+        post("/echanges/:echange_id/accept/:pokemon_id", (req, res) -> {
+
+            StartServer.isConnected(req, res);
+
+            int echangeId = Integer.parseInt(req.params("echange_id"));
+
+            ExchangeCore.acceptExchange(echangeId, Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("pokemon_id")));
+
+            res.redirect("/" + req.cookie("USER_ID"));
             return null;
         });
 

@@ -1,6 +1,7 @@
 package com.uca.gui;
 
 import com.uca.core.ExchangeCore;
+import com.uca.core.ExchangeWantedCore;
 import com.uca.core.PokemonCore;
 import com.uca.core.UserCore;
 import com.uca.entity.ExchangeEntity;
@@ -29,7 +30,8 @@ public class ExchangeGUI{
         input.put("main_user", UserCore.getUserById(mainId));
         input.put("exchange", exchange);
         input.put("pokemon", exchange.getPokemon());
-        input.put("pokemonsWanted", exchange.getPokemonWanted());
+        System.out.println(ExchangeCore.getUserIdFromExchange(id));
+        input.put("pokemonsWanted", exchange.getPokemonWantedPossessed(UserCore.getUserById(mainId).getPokemon()));
 
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("exchanges/exchange.ftl");

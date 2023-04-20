@@ -142,4 +142,19 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
     public void delete(PokemonEntity obj) {
         //TODO !
     }
+
+    public void changeUser(int pokemonId, int newUserId){
+
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE pokemon SET user_id=? WHERE id=?;");
+
+            statement.setInt(1, newUserId);
+            statement.setInt(2, pokemonId);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

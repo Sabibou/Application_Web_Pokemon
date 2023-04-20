@@ -1,5 +1,11 @@
 package com.uca.entity;
 
+import com.uca.core.PokemonCore;
+
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 
@@ -73,5 +79,29 @@ public class ExchangeEntity {
 
     public void setPokemonWanted(LinkedList<PokemonEntity> pokemonWanted) {
         this.pokemonWanted = pokemonWanted;
+    }
+
+    public LinkedList<PokemonEntity> getPokemonWantedPossessed(LinkedList<PokemonEntity> userPokemonList){
+
+        LinkedList<PokemonEntity> pokemonList = new LinkedList<>();
+
+        for(PokemonEntity pokemon : this.pokemonWanted){
+
+            for(PokemonEntity userPokemon : userPokemonList){
+
+                if(pokemon.getPokedexId() == userPokemon.getPokedexId()){
+
+                    pokemon.setId(userPokemon.getId());
+                    break;
+                }
+                else{
+
+                    pokemon.setId(-1);
+                }
+            }
+            pokemonList.add(pokemon);
+        }
+
+        return pokemonList;
     }
 }
