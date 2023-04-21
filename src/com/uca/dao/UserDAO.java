@@ -163,19 +163,23 @@ public class UserDAO extends _Generic<UserEntity> {
             resultSet.next();
 
             Timestamp oldT = resultSet.getTimestamp("last_connection");
-            System.out.println("new:" + newT);
-            System.out.println("old:" + oldT);
-            System.out.println(newT.getTime() - oldT.getTime());
-            if(newT.getTime() - oldT.getTime() > 8640000){  //24h en millisecondes
+         
+            if(newT.getYear() == oldT.getYear()){
 
-                return true;
+                if(newT.getMonth() == oldT.getMonth()){
+
+                    if(newT.getDay() == oldT.getDay()){
+
+                        return false;
+                    }
+                }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return false;
+        return true;
     }
 
     public void setNewConnection(Timestamp newT, int user_id){
