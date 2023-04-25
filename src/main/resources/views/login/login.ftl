@@ -6,8 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Site Pokemon</title>
-        <!--<link rel="icon" href="./images/playstation_logo.jpeg">-->
-        <link rel="stylesheet" type="text/css" media="all" href="style.css">
+		<link rel="stylesheet" type="text/css" media="all" href="/css/reset.css">
     </head>
 
 	

@@ -1,0 +1,66 @@
+form{
+
+    margin-left: 22%;
+    width: 78%;
+}
+
+form .input{
+
+    display: flex;
+    position: inherit;
+    flex-direction: column;
+    width : 70%;
+}
+
+.input label{
+
+
+    font-size: 1.7em;
+}
+
+.input input{
+
+
+    border: 2px solid rgb(1 114 208);
+    border-radius: 4px;
+    display: block;
+    font-size: 1.2em;
+    padding: 10px;
+    margin: 5px;
+    width: 100%;
+}
+
+.input input:focus{
+
+    outline: 0;
+    border-color: blue;
+}
+
+.input.success input{
+
+    border-color: green;
+}
+
+.input .error{
+    
+    color: red;
+}
+
+p input{
+
+    color: white;
+    background: linear-gradient(rgb(1 114 208), rgb(0 67 156));
+    height: 30px;
+    margin-right: 10vw;
+}
+
+#response{
+
+    color: rgb(0 67 156);
+    width: 100%;
+    font-weight: bold;
+    font-size: 2em;
+    margin-bottom: 5vh;
+    padding-left: 20%;
+
+}

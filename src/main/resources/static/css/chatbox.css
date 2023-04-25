@@ -1,0 +1,95 @@
+main{
+
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main>h1{
+
+    width: 100%;
+}
+
+#chat{
+
+    width: 85%;
+    height: 80%;
+    border: 2px solid rgb(1 114 208);
+    overflow: scroll;
+}
+
+form{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 0;
+}
+
+#msg{
+
+    border: 2px solid rgb(1 114 208);
+    border-radius: 4px;
+    font-size: 1.2em;
+    padding: 10px;
+    margin: 5px;
+    width: 80%;
+    height: 3vh;
+}
+
+#send{
+
+    color: white;
+    background: linear-gradient(rgb(1 114 208), rgb(0 67 156));
+    height: 30px;
+    margin-right: 10vw;
+}
+
+#error-msg{
+
+    width: 80%;
+    margin-top: 0;
+}
+
+#chat div{
+
+    border-bottom: 2px solid rgb(1 114 208);
+}
+
+#chat div:nth-child(2n){
+
+    background-color: lightgray;
+}
+
+.user{
+
+    background-color: rgb(1 114 208);
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    width: 20%;
+    margin-left: 0.5vw;
+    margin-bottom: 0;
+}
+
+.date{
+
+    font-style: italic;
+    font-weight: bold;
+}
+
+#error-msg{
+
+    color: red;
+    margin-bottom: 1vh;
+}
+
+@media screen and (max-height: 600px){
+
+	main{
+
+        height: 100vh;
+    }
+}
