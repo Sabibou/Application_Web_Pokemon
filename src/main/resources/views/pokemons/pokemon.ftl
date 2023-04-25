@@ -2,8 +2,10 @@
 
 <body xmlns="http://www.w3.org/1999/html">
 
-${main_user.id}
-${main_user.pseudo}
+<a href="/users/${main_user.id}">
+    ${main_user.id}
+    ${main_user.pseudo}
+</a>
 
 <h1>${pokemon.name}</h1>
 
@@ -12,8 +14,10 @@ id : ${pokemon.id}
 name : ${pokemon.name}
 level : ${pokemon.level}
 sprite : <img src=${pokemon.sprite}>
+
 <#if !isExchangeable && main_user.id == pokemon.userId>
 
+    <h2>Mettre </h2>
     <form action="/echanges/add/${pokemon.id}" method="post">
         <input type="text" name="pokemonName" id="pokemonName">
         <input type="submit" value="Envoyer">

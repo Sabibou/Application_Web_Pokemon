@@ -2,8 +2,10 @@
 
 <body xmlns="http://www.w3.org/1999/html">
 
-${main_user.id}
-${main_user.pseudo}
+<a href="/users/${main_user.id}">
+    ${main_user.id}
+    ${main_user.pseudo}
+</a>
 
 <#if exchanges?size == 0>
     <h1>Aucun Echange Disponible</h1>

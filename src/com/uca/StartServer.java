@@ -23,13 +23,35 @@ public class StartServer{
 
         if(!req.cookies().containsKey("USER_ID")){
 
-            res.redirect("/login");
+            res.redirect("/");
+        }
+    }
+
+    public static void doesUserExist(Request req, Response res){
+
+        if(!UserCore.doesUserExist(Integer.parseInt(req.params("user_id")))){
+
+            res.redirect(null, 404);
+        }
+    }
+
+    public static void doesExchangeExist(Request req, Response res){
+
+        if(!ExchangeCore.doesExchangeExist(Integer.parseInt(req.params("echange_id")))){
+
+            res.redirect(null, 404);
+        }
+    }
+
+    public static void doesPokemonExist(Request req, Response res){
+
+        if(!PokemonCore.doesPokemonExist(Integer.parseInt(req.params("pokemon_id")))){
+
+            res.redirect(null, 404);
         }
     }
 
     public static void main(String[] args) {
-
-        //staticFiles.location("../resources/views");
 
         //Configure Spark
         staticFiles.location("/static/");
@@ -40,17 +62,22 @@ public class StartServer{
 
 
         //Defining our routes
+
+        get("/", (req, res) -> {
+
+            return IndexGUI.getIndexPage();
+        });
+
         get("/users", (req, res) -> {
 
             StartServer.isConnected(req, res);
 
-            return UserGUI.getAllUsers();
+            return UserGUI.getAllUsersExceptMainUser(Integer.parseInt(req.cookie("USER_ID")));
         });
 
         get("/register", (req, res) -> {
 
-            res.redirect("register.html");
-            return null;
+            return RegisterGUI.getRegisterPage();
         });
 
         post("/register", (req, res) -> {
@@ -64,8 +91,7 @@ public class StartServer{
 
         get("/login", (req, res) -> {
 
-            res.redirect("login.html");
-            return null;
+            return LoginGUI.getLoginPage(true, true);
         });
 
         post("/login", (req, res) -> {
@@ -74,7 +100,7 @@ public class StartServer{
 
             if(user == null){
 
-                return "Mauvais nom d'utilisateur";
+                return LoginGUI.getLoginPage(false, true);
             }
             else{
                 if(UserCore.verifyPassword(user.getPassword(), req.queryParams("userpwd"))){
@@ -89,28 +115,33 @@ public class StartServer{
 
                     UserCore.setNewConnection(newT, user.getId());
 
-                    //return UserGUI.getUser(user);
-                    res.cookie("USER_ID", Integer.toString(user.getId()),1000, true);
-                    res.redirect("/" + user.getId());
+                    res.cookie("USER_ID", Integer.toString(user.getId()),10000, true);
+                    res.redirect("/users/" + user.getId());
                     return null;
                 }
                 else{
 
-                    return "Mauvais mdp";
+                    return LoginGUI.getLoginPage(true, false);
                 }
             }
         });
 
-        get("/:user_id", (req, res) -> {
+        get("/users/:user_id", (req, res) -> {
 
             StartServer.isConnected(req, res);
 
-            return UserGUI.getUserById(Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("user_id")));
+            int userId = Integer.parseInt(req.params("user_id"));
+
+            StartServer.doesUserExist(req, res);
+
+            return UserGUI.getUserById(Integer.parseInt(req.cookie("USER_ID")), userId);
         });
 
         post("/pokemon/:pokemon_id/lvl_up", (req, res) -> {
 
             StartServer.isConnected(req, res);
+
+            StartServer.doesPokemonExist(req, res);
 
             PokemonEntity pokemon = PokemonCore.getPokemonById(Integer.parseInt(req.params("pokemon_id")));
 
@@ -127,6 +158,9 @@ public class StartServer{
         get("/pokemon/:pokemon_id", (req, res) -> {
 
             StartServer.isConnected(req, res);
+
+            StartServer.doesPokemonExist(req, res);
+
             return PokemonGUI.getPokemonById(Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("pokemon_id")));
         });
 
@@ -151,7 +185,6 @@ public class StartServer{
 
         get("/echanges/all", (req, res) -> {
 
-            System.out.println("echange");
             StartServer.isConnected(req, res);
             return ExchangeGUI.getAllExchanges(Integer.parseInt(req.cookie("USER_ID")));
         });
@@ -159,6 +192,9 @@ public class StartServer{
         get("/echanges/:echange_id", (req, res) -> {
 
             StartServer.isConnected(req, res);
+
+            StartServer.doesExchangeExist(req, res);
+
             return ExchangeGUI.getExchangeById(Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("echange_id")));
         });
 
@@ -170,14 +206,9 @@ public class StartServer{
         });
 
         get("/disconnect", (req, res) -> {
-            System.out.println("cookie");
-            if(req.cookies().containsKey("USER_ID")){
-
-                System.out.println("cookie");
-                res.removeCookie("USER_ID");
-            }
-            res.redirect("/login");
-            return null;
+            res.removeCookie("USER_ID");
+            res.redirect("/", 301);
+            return "";
         });
 
         post("/echanges/:echange_id/cancel", (req, res) -> {

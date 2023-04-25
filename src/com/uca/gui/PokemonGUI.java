@@ -29,13 +29,13 @@ public class PokemonGUI {
             System.out.println("null");
         }
 
-        input.put("users", UserCore.getAllUsers());
+        input.put("users", UserCore.getAllUsersExceptMainUser(mainUserId));
         input.put("main_user", UserCore.getUserById(mainUserId));
         input.put("pokemon", pokemon);
         input.put("isExchangeable", ExchangeCore.isPokemonExchangeable(pokemon.getId()));
 
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("pokemons/pokemon.ftl");
+        Template template = configuration.getTemplate("views/pokemons/pokemon.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 

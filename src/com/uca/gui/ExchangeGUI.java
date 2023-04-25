@@ -34,7 +34,7 @@ public class ExchangeGUI{
         input.put("pokemonsWanted", exchange.getPokemonWantedPossessed(UserCore.getUserById(mainId).getPokemon()));
 
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("exchanges/exchange.ftl");
+        Template template = configuration.getTemplate("views/exchanges/exchange.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 
@@ -53,7 +53,7 @@ public class ExchangeGUI{
         input.put("exchanges", exchangeList);
 
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("exchanges/exchanges.ftl");
+        Template template = configuration.getTemplate("views/exchanges/exchanges.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 

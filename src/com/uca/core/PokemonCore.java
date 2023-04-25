@@ -92,5 +92,10 @@ public class PokemonCore {
         new PokemonDAO().changeUser(pokemonId, newUserId);
     }
 
+    public static boolean doesPokemonExist(int pokemonId){
+
+        return new PokemonDAO().getPokemonById(pokemonId) != null;
+    }
+
 
 }

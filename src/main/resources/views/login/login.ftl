@@ -21,12 +21,16 @@
 					<div class="input">
 						<label for="username">User Name</label>
 						<input id="username" type="text" name="username"/>
-						<div class="error"></div>
+						<#if username??>
+							<p>Mauvais nom d'utilisateur</p>
+						</#if>
 					</div>
 					<div class="input">
 						<label for="userpwd">Password</label>
 						<input id="userpwd" type="password" name="userpwd"/>
-						<div class="error"></div>
+						<#if mdp??>
+							<p>Mauvais mot de passe</p>
+						</#if>
 					</div>
 					
 					<p><input type="submit" value="Login" /><input type="reset" value="Clear" /></p>

@@ -15,15 +15,16 @@ import java.util.Map;
 
 public class UserGUI {
 
-    public static String getAllUsers() throws IOException, TemplateException {
+    public static String getAllUsersExceptMainUser(int userId) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
 
-        input.put("users", UserCore.getAllUsers());
+        input.put("users", UserCore.getAllUsersExceptMainUser(userId));
+        input.put("main_user", UserCore.getUserById(userId));
 
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("users/users.ftl");
+        Template template = configuration.getTemplate("views/users/users.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 
@@ -36,12 +37,12 @@ public class UserGUI {
         Map<String, Object> input = new HashMap<>();
 
 
-        input.put("users", UserCore.getAllUsers());
+        input.put("users", UserCore.getAllUsersExceptMainUser(user.getId()));
         input.put("main_user", user);
         input.put("pokemons", user.getPokemon());
 
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("users/users.ftl");
+        Template template = configuration.getTemplate("views/users/users.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 
@@ -60,13 +61,14 @@ public class UserGUI {
             System.out.println("null");
         }
 
-        input.put("users", UserCore.getAllUsers());
+        input.put("users", UserCore.getAllUsersExceptMainUser(mainId));
         input.put("main_user", UserCore.getUserById(mainId));
+        input.put("user_page", user);
         input.put("pokemons", user.getPokemon());
         input.put("exchanges", ExchangeCore.getAllExchangesStartedByUser(user.getPokemon()));
 
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("users/users.ftl");
+        Template template = configuration.getTemplate("views/users/user.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 

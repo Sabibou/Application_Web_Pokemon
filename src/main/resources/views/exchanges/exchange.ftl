@@ -2,8 +2,10 @@
 
 <body xmlns="http://www.w3.org/1999/html">
 
-${main_user.id}
-${main_user.pseudo}
+<a href="/users/${main_user.id}">
+    ${main_user.id}
+    ${main_user.pseudo}
+</a>
 
 <h1>Exchange</h1>
 

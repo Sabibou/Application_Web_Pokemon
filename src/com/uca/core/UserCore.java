@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class UserCore {
 
-    public static ArrayList<UserEntity> getAllUsers() {
-        return new UserDAO().getAllUsers();
+    public static ArrayList<UserEntity> getAllUsersExceptMainUser(int userId) {
+        return new UserDAO().getAllUsersExceptMainUser(userId);
     }
 
     public static UserEntity createNewUser(String pseudo, String pwd, Timestamp t){
@@ -56,6 +56,11 @@ public class UserCore {
     public static void resetNbXp(int user_id){
 
         new UserDAO().resetNbXp(user_id);
+    }
+
+    public static boolean doesUserExist(int userId){
+
+        return new UserDAO().getUserById(userId) != null;
     }
 
 

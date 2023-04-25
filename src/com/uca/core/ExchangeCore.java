@@ -64,4 +64,9 @@ public class ExchangeCore {
 
         new ExchangeDAO().acceptExchange(id, userId, pokemonId);
     }
+
+    public static boolean doesExchangeExist(int exchangeId){
+
+        return new ExchangeDAO().getExchangeFromId(exchangeId) != null;
+    }
 }

@@ -100,10 +100,7 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
 
     public ExchangeEntity getExchangeFromId(int id){
 
-        ExchangeEntity exchange = new ExchangeEntity();
-
         try {
-
 
             PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE id=? AND state=0;");
             statement.setInt(1, id);
@@ -111,17 +108,21 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
 
             resultSet.next();
 
+            ExchangeEntity exchange = new ExchangeEntity();
+
             exchange.setPokemon(PokemonCore.getPokemonById(resultSet.getInt("pokemon_id")));
             exchange.setId(id);
             exchange.setDate(resultSet.getTimestamp("date"));
             exchange.setState(resultSet.getInt("state"));
             exchange.setPokemonWanted(ExchangeWantedCore.getAllPokemonWanted(id));
 
+            return exchange;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return exchange;
+        return null;
     }
 
     public LinkedList<ExchangeEntity> getAllExchangesStartedByUser(LinkedList<PokemonEntity> pokemonList){

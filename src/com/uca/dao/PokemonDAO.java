@@ -40,7 +40,6 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
 
     public PokemonEntity getPokemonById (int id) {
 
-        PokemonEntity pokemon = new PokemonEntity();
         try {
 
             PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM pokemon WHERE id=?;");
@@ -50,6 +49,8 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
 
             resultSet.next();
 
+            PokemonEntity pokemon = new PokemonEntity();
+
             pokemon.setId(resultSet.getInt("id"));
             pokemon.setUserId(resultSet.getInt("user_id"));
             pokemon.setPokedexId(resultSet.getInt("id_pokedex"));
@@ -57,11 +58,13 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
             pokemon.setSprite(resultSet.getString("sprite"));
             pokemon.setLevel(resultSet.getInt("level"));
 
+            return pokemon;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return pokemon;
+        return null;
     }
 
     public int lvlUp(int id, int user_id){  //>0: reussi  0:lvl max  -1:echec

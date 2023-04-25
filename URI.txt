@@ -14,10 +14,10 @@ Avoir tous les utilisateurs :
 GET /users 
 
 Page de l'utilisateur :
-GET /user-id
+GET /users/user-id
 
 Avoir la liste de pokemon :
-GET /user-id/pokemon-list
+GET /users/user-id/pokemon-list
 
 Augmenter le nv d'un pokemon :
 POST /pokemon/pokemon-id/lvl-up

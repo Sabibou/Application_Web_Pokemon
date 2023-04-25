@@ -8,10 +8,11 @@ import java.util.ArrayList;
 
 public class UserDAO extends _Generic<UserEntity> {
 
-    public ArrayList<UserEntity> getAllUsers() {
+    public ArrayList<UserEntity> getAllUsersExceptMainUser(int userId) {
         ArrayList<UserEntity> entities = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM joueur ORDER BY id ASC;");
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM joueur WHERE id!=? ORDER BY id ASC;");
+            preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 UserEntity entity = new UserEntity();
@@ -163,7 +164,7 @@ public class UserDAO extends _Generic<UserEntity> {
             resultSet.next();
 
             Timestamp oldT = resultSet.getTimestamp("last_connection");
-         
+
             if(newT.getYear() == oldT.getYear()){
 
                 if(newT.getMonth() == oldT.getMonth()){
