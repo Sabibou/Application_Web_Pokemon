@@ -5,6 +5,7 @@ import com.uca.dao.PokemonDAO;
 import com.uca.entity.ExchangeEntity;
 import com.uca.entity.PokemonEntity;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class ExchangeCore {

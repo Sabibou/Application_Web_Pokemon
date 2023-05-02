@@ -1,3 +1,12 @@
+@font-face {
+	font-family: "Pokemon";
+	src: url("//db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.eot");
+	src: url("//db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.eot?#iefix") format("embedded-opentype"),
+	url("//db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.woff2") format("woff2"),
+	url("//db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.woff") format("woff"),
+	url("//db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.ttf") format("truetype"),
+	url("//db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.svg#Pokemon") format("svg");
+}
 
 body {
 	background: white;
@@ -24,9 +33,17 @@ h1, .h1-like {
 	font-size: 2em; /* equiv 26px */
 	line-height: 1.6154em;
 	margin: .8077em 0 .8077em 0;
-	text-align: center;
 	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-bottom: 20px;
+	font-family: "Pokemon";
+	background: linear-gradient(rgb(1 114 208), rgb(0 67 156));
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	font-weight: bold;
+	z-index: 10;
+	border-radius: 10px;
+	min-height: 10px;
 
 }
 h2, .h2-like {
@@ -53,7 +70,6 @@ h2, .h2-like {
 	position: sticky;
 	top: 0px;
 	z-index: 10000;
-	min-height: 50px;
 	max-height: 70px;
     
 }
@@ -105,46 +121,6 @@ h2, .h2-like {
     background: rgb(3, 84, 154);
 
 
-}
-
-.sub-list{
-
-	display: none;
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	width: 100%;
-	background-color: rgba(3, 84, 154, 0);
-
-}
-
-.sub-list li{
-
-	background-color: rgba(0,0,0,0);
-	border-radius: 10px;
-	margin: 0;
-
-}
-
-.sub-list li>a{
-
-	margin: 0;
-	text-align: center;
-	background-color: rgb(0 112 209);
-	color: white;
-	font-size: small;
-	width: 100%;
-	border:  0.5px solid white;
-
-}
-
-.navlist li:hover .sub-list{
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	justify-content: flex-start;
-	align-content: center;
-	gap: 0px;
 }
 
 
@@ -199,18 +175,6 @@ head{
 aside{
 
 	order: 1;
-}
-
-main > h1{
-
-    background: linear-gradient(rgb(1 114 208), rgb(0 67 156));
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-	text-align: center;
-	font-weight: bold;
-    z-index: 10;
-    border-radius: 10px;
-	min-height: 10px;
 }
 
 

@@ -145,7 +145,7 @@ public class StartServer{
 
             PokemonEntity pokemon = PokemonCore.getPokemonById(Integer.parseInt(req.params("pokemon_id")));
 
-            if(PokemonCore.lvlUp(Integer.parseInt(req.params(":pokemon_id")), pokemon.getUserId()) > 0){
+            if(PokemonCore.lvlUp(pokemon.getId(), Integer.parseInt(req.cookie("USER_ID"))) > 0){
 
                     UserCore.lvlUp(pokemon.getUserId());
                     PokemonCore.isEvolving(pokemon.getPokedexId(), pokemon.getId(), pokemon.getLevel());
@@ -217,7 +217,7 @@ public class StartServer{
 
             ExchangeCore.cancelExchange(Integer.parseInt(req.params("echange_id")));
 
-            res.redirect("/" + req.cookie("USER_ID"));
+            res.redirect("/users/" + req.cookie("USER_ID"));
             return null;
         });
 
@@ -241,7 +241,17 @@ public class StartServer{
 
             ExchangeCore.acceptExchange(echangeId, Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("pokemon_id")));
 
-            res.redirect("/" + req.cookie("USER_ID"));
+            res.redirect("/users/" + req.cookie("USER_ID"));
+            return null;
+        });
+
+        post("/pokemons/:pokemon_id/rename", (req, res) -> {
+
+            StartServer.isConnected(req, res);
+
+            PokemonCore.rename(Integer.parseInt(req.params("pokemon_id")), req.queryParams("newName"));
+
+            res.redirect("/pokemon/" + Integer.parseInt(req.params("pokemon_id")));
             return null;
         });
 

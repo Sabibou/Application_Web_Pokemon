@@ -97,11 +97,10 @@ public class UserDAO extends _Generic<UserEntity> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
-            System.out.println(resultSet.getInt("nb_pok_xp"));
+            
             if(resultSet.getInt("nb_pok_xp") < 5){
-                System.out.println(resultSet.getInt("nb_pok_xp"));
-                return true;
 
+                return true;
             }
 
         } catch (SQLException e) {

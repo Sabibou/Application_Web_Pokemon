@@ -1,9 +1,13 @@
 package com.uca.dao;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uca.core.PokemonCore;
 import com.uca.core.UserCore;
 import com.uca.entity.PokemonEntity;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
 import java.util.LinkedList;
 
@@ -26,7 +30,6 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
                 entity.setPokedexId(resultSet.getInt("id_pokedex"));
                 entity.setName(resultSet.getString("name"));
                 entity.setSprite(resultSet.getString("sprite"));
-                System.out.println("level = " + resultSet.getInt("level"));
                 entity.setLevel(resultSet.getInt("level"));
 
                 entities.add(entity);
@@ -73,7 +76,6 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
 
             if(UserCore.canLvlUp(user_id)){
 
-                System.out.println("canLvl");
                 PreparedStatement preparedStatement = this.connect.prepareStatement("UPDATE pokemon SET level=level+1 WHERE id=?;");
                 preparedStatement.setInt(1, id);
 
@@ -96,7 +98,7 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
             ResultSet resultSet =  preparedStatement.executeQuery();
 
             resultSet.next();
-            System.out.println(resultSet.getInt("user_id"));
+
             return resultSet.getInt("user_id");
 
         } catch (SQLException e) {
@@ -158,6 +160,68 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void rename(int pokemonId, String newName){
+
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE pokemon SET name=? WHERE id=?;");
+
+            statement.setString(1, newName);
+            statement.setInt(2, pokemonId);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public PokemonEntity getPokemonFromAPIById(int pokedexId) throws IOException {
+
+        URL url = new URL("https://pokeapi.co/api/v2/pokemon-form/" + pokedexId);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(url);
+
+        PokemonEntity pokemon = new PokemonEntity();
+
+        pokemon.setSprite(String.valueOf(json.get("sprites").get("front_default")));
+        pokemon.setPokedexId(pokedexId);
+        pokemon.setName(String.valueOf(json.get("name")));
+
+        return pokemon;
+    }
+
+    public PokemonEntity getPokemonFromAPIByName(String name) throws IOException {
+
+        URL url = new URL("https://pokeapi.co/api/v2/pokemon-form/" + name);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(url);
+
+        PokemonEntity pokemon = new PokemonEntity();
+
+        pokemon.setSprite(String.valueOf(json.get("sprites").get("front_default")));
+        pokemon.setPokedexId(Integer.parseInt(String.valueOf(json.get("id"))));
+        pokemon.setName(name);
+
+        return pokemon;
+    }
+
+    public void isEvolving(int pokedex_id, int id, int level) throws IOException {
+
+        URL url = new URL("https://pokeapi.co/api/v2/pokemon-species/" + (pokedex_id+1));
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(url);
+
+        PokemonEntity pokemon = PokemonCore.getPokemonFromAPIById(pokedex_id);
+
+        int levelToGet = pokemon.getLevel() >= 14 ? 30 : 15;
+
+        if(String.valueOf(json.get("evolves_from_species").get("name")).equals(pokemon.getName()) && level >= levelToGet){
+
+            pokemon = PokemonCore.getPokemonFromAPIById(pokedex_id+1);
+            new PokemonDAO().evolve(pokemon, id);
         }
     }
 }

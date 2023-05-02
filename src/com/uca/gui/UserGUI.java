@@ -10,6 +10,7 @@ import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 

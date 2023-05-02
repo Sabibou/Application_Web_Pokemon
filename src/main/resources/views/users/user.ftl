@@ -5,14 +5,39 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Pokemon</title>
-    <link rel="stylesheet" type="text/css" media="all" href="/css/reset.css">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/reset.css"></li>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/base.css"></li>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/users.css"></li>
 </head>
 
 <body xmlns="http://www.w3.org/1999/html">
-<a href="/users/${main_user.id}">
-${main_user.id}
-${main_user.pseudo}
-</a>
+<header class="en-tete">
+
+    <a href="https://www.pokemon.com/fr">
+        <img id="logo" src="/img/pokeball.png" alt="Pokeball">
+    </a>
+
+    <nav class="navbar">
+        <ul class="navlist">
+            <li class="grow">
+                <a href="/users/${main_user.id}">
+                    Page Utilisateur
+                </a>
+            </li>
+            <li class="grow">
+                <a href="/users">
+                    Tous les utilisateurs
+                </a>
+            </li>
+            <li class="grow">
+                <a href="/echanges/all">
+                    Tous les Echanges
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
 
 <#if user_page.id == main_user.id>
     <h1>Votre Compte</h1>
@@ -23,12 +48,11 @@ ${main_user.pseudo}
 
 <h2>Autres Utilisateurs</h2>
 
-<ul>
+<ul id="users">
     <#list users as user>
-        <li><a href="/users/${user.id}">${user.id} - ${user.pseudo} </a>
-            ${user.lastConnection}
-            ${user.nbPokemonXP}
-            ${user.password}
+        <li id="user">
+            <img src="/img/Ash.png" alt="Avatar">
+            <a href="/users/${user.id}">${user.pseudo} </a>
         </li>
     </#list>
 </ul>
