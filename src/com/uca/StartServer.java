@@ -23,7 +23,7 @@ public class StartServer{
 
         if(!req.cookies().containsKey("USER_ID")){
 
-            res.redirect("/");
+            res.redirect("/", 303);
         }
     }
 
@@ -116,7 +116,7 @@ public class StartServer{
                     UserCore.setNewConnection(newT, user.getId());
 
                     res.cookie("USER_ID", Integer.toString(user.getId()),10000, true);
-                    res.redirect("/users/" + user.getId());
+                    res.redirect("/users/" + user.getId(), 303);
                     return null;
                 }
                 else{

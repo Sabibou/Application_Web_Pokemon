@@ -34,6 +34,11 @@
                     Tous les Echanges
                 </a>
             </li>
+            <li class="grow">
+                <a href="/disconnect">
+                    Se déconnecter
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -48,11 +53,13 @@
 
 <h2>Autres Utilisateurs</h2>
 
-<ul id="users">
+<ul class="list">
     <#list users as user>
-        <li id="user">
-            <img src="/img/Ash.png" alt="Avatar">
-            <a href="/users/${user.id}">${user.pseudo} </a>
+        <li class="elt" id="user">
+            <a href="/users/${user.id}">
+                <img src="/img/Ash.png" alt="Avatar">
+                <span>${user.pseudo}</span>
+            </a>
         </li>
     </#list>
 </ul>
@@ -65,14 +72,14 @@
     <h2>Ses Pokemons</h2>
 </#if>
 
-<ul>
+<ul class="list" id="pokemons">
         <#list pokemons as pokemon>
-                <li>user id : ${pokemon.userId}
-                    id : ${pokemon.id}
-                    pokedex id : ${pokemon.pokedexId}
-                    <a href="/pokemon/${pokemon.id}">name : ${pokemon.name}</a>
+                <li class="elt" id="pokemon">
+                    <a href="/pokemon/${pokemon.id}">
+                        <img src=${pokemon.sprite}>
+                       <span>${pokemon.name}</span>
+                    </a>
                     level : ${pokemon.level}
-                    sprite : <img src=${pokemon.sprite}>
                     <form action="/pokemon/${pokemon.id}/lvl_up" method="post">
                         <input type="submit" value="Lvl Up">
                     </form>
@@ -85,18 +92,25 @@
     <h2>Ses Echanges</h2>
 </#if>
 
-<ul>
+<ul class="list">
     <#list exchanges as exchange>
-        <li><a href="/echanges/${exchange.id}">echange id : ${exchange.id}</a>
-            pokedex_id : ${exchange.pokemon.pokedexId}
-            sprite : <img src=${exchange.pokemon.sprite}>
+        <li class="elt" id="exchange">
+            <div>
+                <a href="/echanges/${exchange.id}">
+                    <img src=${exchange.pokemon.sprite}>
+                </a>
+                <#if main_user.id == exchange.pokemon.userId>
+                    <form action="/echanges/${exchange.id}/cancel" method="post">
+                        <input type="submit" value="Cancel">
+                    </form>
+                </#if>
+            </div>
         </li>
     </#list>
 </ul>
 
 <a href="/echanges/all">Voir tous les échanges</a>
 
-<a href="/disconnect">Se déconnecter</a>
 </body>
 
 </html>
