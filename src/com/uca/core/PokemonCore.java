@@ -70,5 +70,10 @@ public class PokemonCore {
         return new PokemonDAO().getPokemonById(pokemonId) != null;
     }
 
+    public static String getPokedexDescription(int pokedex_id) throws IOException {
+
+        return new PokemonDAO().getPokedexDescription(pokedex_id);
+    }
+
 
 }

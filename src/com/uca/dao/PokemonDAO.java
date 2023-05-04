@@ -186,9 +186,13 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
 
         PokemonEntity pokemon = new PokemonEntity();
 
+        String name = String.valueOf(json.get("name"));
+
+        name = name.substring(1, name.length()-2);
+        
         pokemon.setSprite(String.valueOf(json.get("sprites").get("front_default")));
         pokemon.setPokedexId(pokedexId);
-        pokemon.setName(String.valueOf(json.get("name")));
+        pokemon.setName(name);
 
         return pokemon;
     }
@@ -223,5 +227,19 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
             pokemon = PokemonCore.getPokemonFromAPIById(pokedex_id+1);
             new PokemonDAO().evolve(pokemon, id);
         }
+    }
+
+    public String getPokedexDescription(int pokedex_id) throws IOException {
+
+        URL url = new URL("https://pokeapi.co/api/v2/pokemon-species/" + (pokedex_id));
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(url);
+
+        String description = String.valueOf(json.get("flavor_text_entries").get(0).get("flavor_text"));
+        description = description.replace("\\n", " ");
+        description = description.replace("\\f", " ");
+        description = description.substring(1, description.length()-2);
+
+        return description;
     }
 }

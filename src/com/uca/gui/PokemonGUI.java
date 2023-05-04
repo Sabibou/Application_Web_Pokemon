@@ -33,6 +33,7 @@ public class PokemonGUI {
         input.put("main_user", UserCore.getUserById(mainUserId));
         input.put("pokemon", pokemon);
         input.put("isExchangeable", ExchangeCore.isPokemonExchangeable(pokemon.getId()));
+        input.put("description", PokemonCore.getPokedexDescription(id));
 
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("views/pokemons/pokemon.ftl");

@@ -186,7 +186,7 @@ aside{
 */
 .footer{
 
-	background: linear-gradient(rgb(1 114 208), rgb(0 67 156));
+	background: linear-gradient(rgb(206 34 17), rgb(229 66 34));
 	order: 100;
 	display: flex;
 	flex-direction: column;
