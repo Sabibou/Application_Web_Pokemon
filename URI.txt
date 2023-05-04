@@ -49,3 +49,9 @@ POST /echanges/echange-id/add
 Supprimer pokemon d'un echange :
 POST /echanges/echange-id/delete/pokedex-id
 
+Acceder au pokedex :
+GET /pokedex
+
+Acceder à un pokemon du pokedex :
+GET /pokedex/pokedex-id
+

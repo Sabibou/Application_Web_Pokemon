@@ -255,5 +255,10 @@ public class StartServer{
             return null;
         });
 
+        get("/pokedex", (req, res) -> {
+
+            return PokemonGUI.getPokedex(Integer.parseInt(req.cookie("USER_ID")));
+        });
+
     }
 }

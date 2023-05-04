@@ -188,8 +188,8 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
 
         String name = String.valueOf(json.get("name"));
 
-        name = name.substring(1, name.length()-2);
-        
+        name = name.substring(1, name.length()-1);
+
         pokemon.setSprite(String.valueOf(json.get("sprites").get("front_default")));
         pokemon.setPokedexId(pokedexId);
         pokemon.setName(name);
@@ -238,8 +238,45 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
         String description = String.valueOf(json.get("flavor_text_entries").get(0).get("flavor_text"));
         description = description.replace("\\n", " ");
         description = description.replace("\\f", " ");
-        description = description.substring(1, description.length()-2);
+        description = description.substring(1, description.length()-1);
 
         return description;
+    }
+
+    public LinkedList<PokemonEntity> getPokedex(LinkedList<PokemonEntity> pokemonList) throws IOException {
+
+        LinkedList<PokemonEntity> pokedex = new LinkedList<>();
+
+        for(int i=1; i<20; i++){
+
+            PokemonEntity pokemon = this.getPokemonFromAPIById(i);
+
+            if(this.doesUserGotPokemon(pokemonList, i)){
+
+                pokemon.setUserId(1);
+            }
+            else{
+
+                pokemon.setUserId(-1);
+            }
+            pokedex.add(pokemon);
+
+        }
+
+        return pokedex;
+    }
+
+    public boolean doesUserGotPokemon(LinkedList<PokemonEntity> pokemonList, int pokedexId){
+
+        for (PokemonEntity pokemon : pokemonList) {
+
+            if (pokemon.getPokedexId() == pokedexId) {
+
+                return true;
+
+            }
+        }
+
+        return false;
     }
 }

@@ -35,6 +35,11 @@
                 </a>
             </li>
             <li class="grow">
+                <a href="/pokedex">
+                    Pokedex
+                </a>
+            </li>
+            <li class="grow">
                 <a href="/disconnect">
                     Se déconnecter
                 </a>

@@ -75,5 +75,9 @@ public class PokemonCore {
         return new PokemonDAO().getPokedexDescription(pokedex_id);
     }
 
+    public static LinkedList<PokemonEntity> getPokedex(LinkedList<PokemonEntity> userPokemons) throws IOException{
+
+        return new PokemonDAO().getPokedex(userPokemons);
+    }
 
 }

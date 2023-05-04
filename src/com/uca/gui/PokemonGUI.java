@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class PokemonGUI {
@@ -37,6 +38,25 @@ public class PokemonGUI {
 
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("views/pokemons/pokemon.ftl");
+        template.setOutputEncoding("UTF-8");
+        template.process(input, output);
+
+        return output.toString();
+    }
+
+    public static String getPokedex(int mainUserId) throws IOException, TemplateException {
+        Configuration configuration = _FreeMarkerInitializer.getContext();
+
+        Map<String, Object> input = new HashMap<>();
+
+        UserEntity mainUser = UserCore.getUserById(mainUserId);
+        LinkedList<PokemonEntity> pokedex = PokemonCore.getPokedex(mainUser.getPokemon());
+
+        input.put("main_user", mainUser);
+        input.put("pokedex", pokedex);
+
+        Writer output = new StringWriter();
+        Template template = configuration.getTemplate("views/pokemons/pokedex.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 
