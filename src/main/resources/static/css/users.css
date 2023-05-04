@@ -1,7 +1,9 @@
+
+
 .list{
 
     padding-left: 0;
-    height: 17vh;
+    height: 18vh;
     width: 100%;
     overflow-x: scroll;
     list-style: none;
@@ -14,14 +16,35 @@
     height: 20vh;
 }
 
+.elt a{
+
+    font-weight: bold;
+    font-size: 1.4em;
+    color: black;
+    text-align: center;
+    padding: 0.5vh;
+    text-decoration: none;
+}
+
+.elt input{
+
+    background: linear-gradient(rgb(206 34 17), rgb(229 66 34));
+    border: 1px solid black;
+    color: white;
+}
+
 .elt{
 
     width: 15vw;
-    border-radius: 100px;
     text-align: center;
     height: 100%;
     display: inline-block;
 
+}
+
+.elt:hover{
+
+    border: 1px solid black;
 }
 
 .elt img{

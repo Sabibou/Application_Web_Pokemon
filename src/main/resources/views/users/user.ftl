@@ -81,7 +81,7 @@
                     </a>
                     level : ${pokemon.level}
                     <form action="/pokemon/${pokemon.id}/lvl_up" method="post">
-                        <input type="submit" value="Lvl Up">
+                        <input class="grow" type="submit" value="Lvl Up">
                     </form>
                 </li>
         </#list>
@@ -101,7 +101,7 @@
                 </a>
                 <#if main_user.id == exchange.pokemon.userId>
                     <form action="/echanges/${exchange.id}/cancel" method="post">
-                        <input type="submit" value="Cancel">
+                        <input class="grow" type="submit" value="Cancel">
                     </form>
                 </#if>
             </div>

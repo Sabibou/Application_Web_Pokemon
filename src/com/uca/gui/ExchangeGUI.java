@@ -49,6 +49,7 @@ public class ExchangeGUI{
         UserEntity mainUser = UserCore.getUserById(mainId);
         LinkedList<ExchangeEntity> exchangeList = ExchangeCore.getAllExchangesAvailableForUser(mainUser.getPokemon());
 
+        System.out.println("before");
         input.put("main_user", mainUser);
         input.put("exchanges", exchangeList);
 

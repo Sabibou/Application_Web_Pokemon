@@ -163,16 +163,18 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
             PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM echange WHERE state=0;");
             ResultSet resultSet = statement.executeQuery();
 
+            boolean available;
+
             while(resultSet.next()) {
 
-                boolean available = true;
+                available = true;
 
                 for (PokemonEntity pokemon : pokemonList) {
-                    System.out.println("pokemonId =" + pokemon.getId() + "/" + resultSet.getInt("pokemon_id"));
+
                     if (pokemon.getId() == resultSet.getInt("pokemon_id")) {
 
-                        pokemonList.remove(pokemon);
                         available = false;
+
                     }
                 }
 
@@ -180,13 +182,13 @@ public class ExchangeDAO extends _Generic<ExchangeEntity>{
 
                     exchangeList.add(this.getExchangeFromPokemonId(resultSet.getInt("pokemon_id")));
                 }
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        System.out.println("finish");
         return exchangeList;
     }
 

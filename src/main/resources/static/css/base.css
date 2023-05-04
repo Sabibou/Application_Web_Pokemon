@@ -36,7 +36,7 @@ h1, .h1-like {
 	padding-top: 5px;
 	padding-bottom: 20px;
 	font-family: "Pokemon";
-	background: linear-gradient(rgb(1 114 208), rgb(0 67 156));
+	background: linear-gradient(rgb(206 34 17), rgb(229 66 34));
 	text-decoration: none;
 	color: rgb(255, 255, 255);
 	text-align: center;
@@ -71,7 +71,7 @@ h2, .h2-like {
 	top: 0px;
 	z-index: 10000;
 	max-height: 70px;
-    
+    border: 0.5px solid black;
 }
 
 .navbar{
@@ -105,7 +105,7 @@ h2, .h2-like {
 
 .navlist li a{
 
-    background: rgb(0 112 209);
+    background: linear-gradient(rgb(206 34 17), rgb(229 66 34));
     text-decoration: none;
     color: rgb(255, 255, 255);
 	text-align: center;
@@ -113,12 +113,13 @@ h2, .h2-like {
 	border-radius: 20px;
 	font-weight: bold;
 	min-height: 20px;
+	border: 1px solid black;
 	
 }
 
 .navlist a:hover{
 
-    background: rgb(3, 84, 154);
+    background: rgb(206 34 17);
 
 
 }
@@ -296,6 +297,20 @@ aside{
 
 }
 
+body>a{
+
+	background: linear-gradient(rgb(206 34 17), rgb(229 66 34));
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	padding: 0.5vh;
+	border-radius: 20px;
+	font-weight: bold;
+	min-height: 20px;
+	margin-left: 2vw;
+	width: 30vw;
+}
+
 
 
 @media screen and (max-width: 700px){
@@ -394,14 +409,15 @@ aside{
 
 	.navlist li a{
 
-		background: rgb(0 112 209);
+		background: linear-gradient(rgb(206 34 17), rgb(229 66 34));
 		text-decoration: none;
 		color: rgb(255, 255, 255);
 		text-align: center;
 		padding: 0.5vh;
 		border-radius: 20px;
 		font-weight: bold;
-		font-size: 1.3em;
+		min-height: 20px;
+		border: 1px solid black;
 		
 	}
 
