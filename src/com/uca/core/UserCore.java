@@ -63,6 +63,11 @@ public class UserCore {
         return new UserDAO().getUserById(userId) != null;
     }
 
+    public static boolean doesPseudoExist(String pseudo){
+
+        return new UserDAO().getUserByPseudo(pseudo) != null;
+    }
+
 
 
 

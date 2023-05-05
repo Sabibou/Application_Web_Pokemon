@@ -12,13 +12,18 @@ import java.util.Map;
 
 public class RegisterGUI{
 
-    public static String getRegisterPage() throws IOException, TemplateException{
+    public static String getRegisterPage(boolean pseudoExists) throws IOException, TemplateException{
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
 
+        if(pseudoExists){
+
+            input.put("pseudoExists", new Object());
+        }
+
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("static/register.html");
+        Template template = configuration.getTemplate("views/register/register.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 

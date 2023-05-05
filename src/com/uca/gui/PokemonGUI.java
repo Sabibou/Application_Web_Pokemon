@@ -62,4 +62,24 @@ public class PokemonGUI {
 
         return output.toString();
     }
+
+    public static String getPokedexPage(int mainUserId, int pokedexId) throws IOException, TemplateException {
+        Configuration configuration = _FreeMarkerInitializer.getContext();
+
+        Map<String, Object> input = new HashMap<>();
+
+        UserEntity mainUser = UserCore.getUserById(mainUserId);
+        PokemonEntity pokemon = PokemonCore.getPokemonFromAPIById(pokedexId);
+
+        input.put("main_user", mainUser);
+        input.put("pokemon", pokemon);
+        input.put("description", PokemonCore.getPokedexDescription(pokedexId));
+
+        Writer output = new StringWriter();
+        Template template = configuration.getTemplate("views/pokemons/pokedexPage.ftl");
+        template.setOutputEncoding("UTF-8");
+        template.process(input, output);
+
+        return output.toString();
+    }
 }

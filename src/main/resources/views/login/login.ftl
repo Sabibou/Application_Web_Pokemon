@@ -17,7 +17,7 @@
 			<main>
 
 				<h1>Se connecter</h1>
-                <!--method="post" action="./htbin/login.py"-->
+
 				<form id="form" method="post" action="/login">
 					<div class="input">
 						<label for="username">User Name</label>
@@ -38,7 +38,6 @@
 				</form>
 
                 <p id="response"></p>
-                <!--<a id="register" href="register.html">Créer un compte</a>-->
 
 
 			</main>

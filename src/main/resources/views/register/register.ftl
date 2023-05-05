@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PokExchange</title>
-        <link rel="stylesheet" type="text/css" media="all" href="./css/reset.css">
+        <link rel="stylesheet" type="text/css" media="all" href="../../static/css/reset.css">
         <link rel="stylesheet" type="text/css" media="all" href="/css/base.css">
 
     </head>
@@ -22,6 +22,9 @@
                     <input id="username" type="text" name="username">
                     <div class="error"></div>
                 </div>
+                <#if pseudoExists??>
+                    Nom d'utilisateur existant
+                </#if>
                 <div class="input">
                     <label for="useremail">Email</label>
                     <input id="useremail" type="text" name="useremail">

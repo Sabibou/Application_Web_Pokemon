@@ -80,4 +80,10 @@ public class PokemonCore {
         return new PokemonDAO().getPokedex(userPokemons);
     }
 
+    public static void getNewLegendary(int userId) throws IOException {
+
+        int[] legendaryPokedexId = {150, 383, 484, 716}; //mewtwo, groudon, palkia, xerneas
+        PokemonCore.createNewPokemon(legendaryPokedexId[(int)(Math.random() * ((4)))], userId);
+    }
+
 }

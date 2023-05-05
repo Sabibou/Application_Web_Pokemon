@@ -77,16 +77,29 @@ public class StartServer{
 
         get("/register", (req, res) -> {
 
-            return RegisterGUI.getRegisterPage();
+            return RegisterGUI.getRegisterPage(false);
         });
 
         post("/register", (req, res) -> {
 
-            UserEntity user = UserCore.createNewUser(req.queryParams("username"), req.queryParams("userpwd"), new Timestamp(System.currentTimeMillis()));
-            PokemonCore.createNewPokemon(1 + (int)(Math.random() * ((1000 - 1))), user.getId());
+            if(!UserCore.doesPseudoExist(req.queryParams("username"))){
 
-            res.redirect("/" + user.getId());
-            return null;
+                UserEntity user = UserCore.createNewUser(req.queryParams("username"), req.queryParams("userpwd"), new Timestamp(System.currentTimeMillis()));
+
+                PokemonCore.getNewLegendary(user.getId());
+
+                PokemonCore.createNewPokemon(1 + (int)(Math.random() * ((1000 - 1))), user.getId());
+                PokemonCore.createNewPokemon(1 + (int)(Math.random() * ((1000 - 1))), user.getId());
+                PokemonCore.createNewPokemon(1 + (int)(Math.random() * ((1000 - 1))), user.getId());
+
+                res.cookie("USER_ID", Integer.toString(user.getId()),10000, true);
+                res.redirect("/users/" + user.getId(), 303);
+                return null;
+            }
+            else{
+
+                return RegisterGUI.getRegisterPage(true);
+            }
         });
 
         get("/login", (req, res) -> {
@@ -258,6 +271,11 @@ public class StartServer{
         get("/pokedex", (req, res) -> {
 
             return PokemonGUI.getPokedex(Integer.parseInt(req.cookie("USER_ID")));
+        });
+
+        get("/pokedex/:pokedex-id", (req, res) -> {
+
+            return PokemonGUI.getPokedexPage(Integer.parseInt(req.cookie("USER_ID")), Integer.parseInt(req.params("pokedex-id")));
         });
 
     }

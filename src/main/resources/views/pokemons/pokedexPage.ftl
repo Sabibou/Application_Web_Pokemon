@@ -43,41 +43,13 @@
     </nav>
 </header>
 
-<h1>Pokemon</h1>
+<h1>Pokedex</h1>
 
 Nom : ${pokemon.name}
 ID Pokedex : ${pokemon.pokedexId}
 Description du pokedex : ${description}
-level : ${pokemon.level}
 sprite : <img src=${pokemon.sprite}>
 
-<form action="/pokemon/${pokemon.id}/lvl_up" method="post">
-    <input type="submit" value="Lvl Up">
-</form>
-
-<#if !isExchangeable && main_user.id == pokemon.userId>
-
-    <h2>Mettre sur le marché des échanges (écrire le nom des pokemons en anglais)</h2>
-    <form action="/echanges/add/${pokemon.id}" method="post">
-        <p>Rentrer le nom du pokemon voulu :</p>
-        <input type="text" name="pokemonName" id="pokemonName">
-        <input type="submit" value="Envoyer">
-    </form>
-<#elseif main_user.id == pokemon.userId>
-    Pokemon déjà sur le marché
-<#else>
-</#if>
-
-<#if main_user.id == pokemon.userId>
-
-    <h2>Renommer le pokemon</h2>
-    <form action="/pokemons/${pokemon.id}/rename" method="post">
-        <p>Rentrer le nouveau nom du pokemon :</p>
-        <input type="text" name="newName" id="newName">
-        <input type="submit" value="Renommer">
-    </form>
-<#else>
-</#if>
 
 <footer class="footer">
     <h1>A propos</h1>
