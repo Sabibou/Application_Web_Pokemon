@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PokExchange</title>
   <link rel="stylesheet" type="text/css" media="all" href="/css/reset.css">
-  <link rel="stylesheet" type="text/css" media="all" href="/css/base.css"></li>
+  <link rel="stylesheet" type="text/css" media="all" href="/css/base.css">
+  <link rel="stylesheet" type="text/css" media="all" href="/css/users.css">
+
 </head>
 
 <body xmlns="http://www.w3.org/1999/html">
@@ -43,24 +45,18 @@
   </nav>
 </header>
 
-<a href="/users/${main_user.id}">
-  ${main_user.id}
-  ${main_user.pseudo}
-</a>
-
 <h2>Autres Utilisateurs</h2>
 
 <ul>
   <#list users as user>
-  <li><a href="/users/${user.id}">${user.id} - ${user.pseudo} </a>
-    ${user.lastConnection}
-    ${user.nbPokemonXP}
-    ${user.password}
-  </li>
+    <li class="elt" id="user">
+      <a href="/users/${user.id}">
+        <img src="/img/Ash.png" alt="Avatar">
+        <span>${user.pseudo}</span>
+      </a>
+    </li>
 </#list>
 </ul>
-
-<a href="/disconnect">Se déconnecter</a>
 
 <footer class="footer">
   <h1>A propos</h1>

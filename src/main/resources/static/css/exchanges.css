@@ -3,17 +3,10 @@
 .list{
 
     padding-left: 0;
-    height: 18vh;
+    height: 25vh;
     width: 100%;
-    overflow-x: scroll;
     list-style: none;
-    white-space: nowrap;
     justify-content: space-evenly;
-}
-
-#pokemons{
-
-    height: 20vh;
 }
 
 .elt a{
@@ -24,13 +17,8 @@
     text-align: center;
     padding: 0.5vh;
     text-decoration: none;
-}
-
-.elt input{
-
-    background: linear-gradient(rgb(206 34 17), rgb(229 66 34));
-    border: 1px solid black;
-    color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .elt{
@@ -39,7 +27,13 @@
     text-align: center;
     height: 100%;
     display: inline-block;
+    border: 1px solid black;
 
+}
+
+#pokemonWanted li{
+
+    border: none;
 }
 
 .elt:hover{
@@ -50,20 +44,11 @@
 .elt img{
 
     border-radius: 100px;
-    height: 50%;
-    width: 50%;
-    padding-left: 25%;
+    height: 90%;
+    width: 90%;
+    padding-left: 10%;
 }
 
-#user a{
-    display: flex;
-    flex-direction: column;
-}
-
-#pokemon a{
-    display: flex;
-    flex-direction: column;
-}
 
 #exchange div{
 
@@ -71,16 +56,16 @@
     flex-direction: column;
 }
 
-#userPage{
+#exchangePage{
 
     display: flex;
     flex-direction: row;
 }
 
-#userPage img{
+#exchangePage img{
 
-    height: 10vh;
-    width: 10vh;
+    height: 15vh;
+    width: 15vh;
 }
 
 #description{
@@ -100,3 +85,14 @@
     font-family: Garamond, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
     font-weight: bold;
 }
+
+
+#pokemonWanted{
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+

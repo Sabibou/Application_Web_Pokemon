@@ -1,0 +1,39 @@
+
+#pokemonPage{
+
+    display: flex;
+    flex-direction: row;
+}
+
+#pokemonPage img{
+
+    height: 15vh;
+    width: 15vh;
+}
+
+#description{
+
+    display: flex;
+    flex-direction: column;
+}
+
+#description p{
+
+    margin-bottom: 0.5vh;
+    margin-top: 0.5vh;
+}
+
+#description p em{
+
+    font-family: Garamond, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+    font-weight: bold;
+}
+
+h2{
+
+    width: 50%;
+}
+
+
+
+

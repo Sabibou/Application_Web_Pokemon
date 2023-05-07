@@ -8,7 +8,7 @@
     <title>PokExchange</title>
     <link rel="stylesheet" type="text/css" media="all" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" media="all" href="/css/base.css">
-
+    <link rel="stylesheet" type="text/css" media="all" href="/css/exchanges.css">
 </head>
 
 <body xmlns="http://www.w3.org/1999/html">
@@ -37,6 +37,11 @@
                 </a>
             </li>
             <li class="grow">
+                <a href="/pokedex">
+                    Pokedex
+                </a>
+            </li>
+            <li class="grow">
                 <a href="/disconnect">
                     Se déconnecter
                 </a>
@@ -45,32 +50,32 @@
     </nav>
 </header>
 
-<a href="/users/${main_user.id}">
-    ${main_user.id}
-    ${main_user.pseudo}
-</a>
-
 <h1>Exchange</h1>
 
-Exchange id : ${exchange.id}
-Pokedex id : ${pokemon.pokedexId}
-name : ${pokemon.name}
-level : ${pokemon.level}
-sprite : <img src=${pokemon.sprite}>
+<div id="exchangePage">
+    <img src=${pokemon.sprite}>
+    <div id="description">
+        <p><em>ID Pokédex :</em> ${pokemon.pokedexId}</p>
+        <p><em>Nom :</em> ${pokemon.name}</p>
+        <p><em>Niveau :</em> ${pokemon.level}</p>
+    </div>
+</div>
 
 <h2>Pokemons voulus</h2>
 
-<ul>
+<ul id="pokemonWanted">
     <#list pokemonsWanted as pokemonWanted>
-        <li>
-            Pokedex id : ${pokemonWanted.pokedexId}
-            <a href="/pokemon/${pokemonWanted.id}">name : ${pokemonWanted.name}</a>
-            level : ${pokemonWanted.level}
-            sprite : <img src=${pokemonWanted.sprite}>
+        <li class="elt">
+            <a href="/pokedex/${pokemonWanted.pokedexId}">
+                <img src=${pokemonWanted.sprite}>
+                <span>${pokemonWanted.name}</span>
+            </a>
             <#if main_user.id != pokemon.userId && pokemonWanted.id != -1>
                 <form action="/echanges/${exchange.id}/accept/${pokemonWanted.id}" method="post">
                     <input type="submit" value="Echanger">
                 </form>
+            <#else>
+                <em>Non possédé</em>
             </#if>
         </li>
     </#list>

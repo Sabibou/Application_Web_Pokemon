@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokExchange</title>
     <link rel="stylesheet" type="text/css" media="all" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" media="all" href="/css/base.css"></li>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/pokedex.css">
 </head>
 
 <body xmlns="http://www.w3.org/1999/html">
@@ -35,6 +36,11 @@
                 </a>
             </li>
             <li class="grow">
+                <a href="/pokedex">
+                    Pokedex
+                </a>
+            </li>
+            <li class="grow">
                 <a href="/disconnect">
                     Se déconnecter
                 </a>
@@ -45,10 +51,15 @@
 
 <h1>Pokedex</h1>
 
-Nom : ${pokemon.name}
-ID Pokedex : ${pokemon.pokedexId}
-Description du pokedex : ${description}
-sprite : <img src=${pokemon.sprite}>
+<div id="pokedexPage">
+    <img src=${pokemon.sprite}>
+    <div id="description">
+        <p><em>ID Pokédex :</em> ${pokemon.pokedexId}</p>
+        <p><em>Nom :</em> ${pokemon.name}</p>
+        <p><em>Niveau :</em> ${pokemon.level}</p>
+        <p><em>Description du pokedex :</em> ${description}</p>
+    </div>
+</div>
 
 
 <footer class="footer">

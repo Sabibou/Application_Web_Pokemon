@@ -164,8 +164,17 @@ public class StartServer{
                     PokemonCore.isEvolving(pokemon.getPokedexId(), pokemon.getId(), pokemon.getLevel());
 
             }
+          
+            if(req.queryParams("location").equals("user")){
 
-            return UserGUI.getUserById(Integer.parseInt(req.cookie("USER_ID")), pokemon.getUserId());
+                res.redirect("/users/" + pokemon.getUserId());
+            }
+            else{
+
+                res.redirect("/pokemon/" + req.params("pokemon_id"));
+            }
+
+            return null;
         });
 
         get("/pokemon/:pokemon_id", (req, res) -> {

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokExchange</title>
     <link rel="stylesheet" type="text/css" media="all" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" media="all" href="/css/base.css"></li>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/pokemons.css">
 </head>
 
 <body xmlns="http://www.w3.org/1999/html">
@@ -35,6 +36,16 @@
                 </a>
             </li>
             <li class="grow">
+                <a href="/pokedex">
+                    Pokedex
+                </a>
+            </li>
+            <li class="grow">
+                <a href="/pokedex">
+                    Pokedex
+                </a>
+            </li>
+            <li class="grow">
                 <a href="/disconnect">
                     Se déconnecter
                 </a>
@@ -45,26 +56,30 @@
 
 <h1>Pokemon</h1>
 
-Nom : ${pokemon.name}
-ID Pokedex : ${pokemon.pokedexId}
-Description du pokedex : ${description}
-level : ${pokemon.level}
-sprite : <img src=${pokemon.sprite}>
+<div id="pokemonPage">
+    <img src=${pokemon.sprite}>
+    <div id="description">
+        <p><em>ID Pokédex :</em> ${pokemon.pokedexId}</p>
+        <p><em>Nom :</em> ${pokemon.name}</p>
+        <p><em>Niveau :</em> ${pokemon.level}</p>
+        <p><em>Description du pokedex :</em> ${description}</p>
+    </div>
+</div>
 
-<form action="/pokemon/${pokemon.id}/lvl_up" method="post">
+<form action="/pokemon/${pokemon.id}/lvl_up?location=pokemon" method="post">
     <input type="submit" value="Lvl Up">
 </form>
 
 <#if !isExchangeable && main_user.id == pokemon.userId>
 
-    <h2>Mettre sur le marché des échanges (écrire le nom des pokemons en anglais)</h2>
+    <h2>Mettre sur le marché des échanges</h2>
     <form action="/echanges/add/${pokemon.id}" method="post">
-        <p>Rentrer le nom du pokemon voulu :</p>
+        <p>Rentrer le nom du pokemon voulu en anglais (ex : <em>charizard</em>) :</p>
         <input type="text" name="pokemonName" id="pokemonName">
         <input type="submit" value="Envoyer">
     </form>
 <#elseif main_user.id == pokemon.userId>
-    Pokemon déjà sur le marché
+    <strong>Pokemon déjà sur le marché</strong>
 <#else>
 </#if>
 

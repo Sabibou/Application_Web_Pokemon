@@ -55,6 +55,14 @@
     <h1>Page utilisateur de ${user_page.pseudo}</h1>
 </#if>
 
+<div id="userPage">
+    <img src="/img/Ash.png" alt="Avatar">
+    <div id="description">
+        <p><em>Pseudo :</em> ${user_page.pseudo}</p>
+        <p><em>Dernière Connexion :</em> ${user_page.lastConnection}</p>
+        <p><em>Nombre de pokemons XP aujourd'hui :</em> ${user_page.nbPokemonXP}</p>
+    </div>
+</div>
 
 <h2>Autres Utilisateurs</h2>
 
@@ -85,7 +93,7 @@
                        <span>${pokemon.name}</span>
                     </a>
                     level : ${pokemon.level}
-                    <form action="/pokemon/${pokemon.id}/lvl_up" method="post">
+                    <form action="/pokemon/${pokemon.id}/lvl_up?location=user" method="post">
                         <input class="grow" type="submit" value="Lvl Up">
                     </form>
                 </li>

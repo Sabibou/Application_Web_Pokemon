@@ -28,7 +28,10 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
                 entity.setId(resultSet.getInt("id"));
                 entity.setUserId(user_id);
                 entity.setPokedexId(resultSet.getInt("id_pokedex"));
-                entity.setName(resultSet.getString("name"));
+
+                String name = resultSet.getString("name");
+                name = name.contains("\"")? name.substring(1, name.length()-1) : name;
+                entity.setName(name);
                 entity.setSprite(resultSet.getString("sprite"));
                 entity.setLevel(resultSet.getInt("level"));
 
@@ -57,7 +60,9 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
             pokemon.setId(resultSet.getInt("id"));
             pokemon.setUserId(resultSet.getInt("user_id"));
             pokemon.setPokedexId(resultSet.getInt("id_pokedex"));
-            pokemon.setName(resultSet.getString("name"));
+            String name = resultSet.getString("name");
+            name = name.contains("\"")? name.substring(1, name.length()-1) : name;
+            pokemon.setName(name);
             pokemon.setSprite(resultSet.getString("sprite"));
             pokemon.setLevel(resultSet.getInt("level"));
 
@@ -188,7 +193,7 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
 
         String name = String.valueOf(json.get("name"));
 
-        name = name.substring(1, name.length()-1);
+        name = name.contains("\"")? name.substring(1, name.length()-1) : name;
 
         pokemon.setSprite(String.valueOf(json.get("sprites").get("front_default")));
         pokemon.setPokedexId(pokedexId);
