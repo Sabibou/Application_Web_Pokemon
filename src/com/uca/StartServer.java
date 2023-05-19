@@ -164,7 +164,7 @@ public class StartServer{
                     PokemonCore.isEvolving(pokemon.getPokedexId(), pokemon.getId(), pokemon.getLevel());
 
             }
-          
+
             if(req.queryParams("location").equals("user")){
 
                 res.redirect("/users/" + pokemon.getUserId());

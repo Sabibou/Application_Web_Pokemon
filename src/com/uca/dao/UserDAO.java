@@ -64,18 +64,19 @@ public class UserDAO extends _Generic<UserEntity> {
             preparedStatement.setString(1, pseudo);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            resultSet.next();
+            if(resultSet.next()) {
 
-            UserEntity user = new UserEntity();
+                UserEntity user = new UserEntity();
 
-            user.setId(resultSet.getInt("id"));
-            user.setPokemon(PokemonCore.getAllPokemonByUser(resultSet.getInt("id")));
-            user.setPseudo(resultSet.getString("pseudo"));
-            user.setLastConnection(new Timestamp(System.currentTimeMillis()));
-            user.setPassword(resultSet.getString("password"));
-            user.setNbPokemonXP(resultSet.getInt("nb_pok_xp"));
+                user.setId(resultSet.getInt("id"));
+                user.setPokemon(PokemonCore.getAllPokemonByUser(resultSet.getInt("id")));
+                user.setPseudo(resultSet.getString("pseudo"));
+                user.setLastConnection(new Timestamp(System.currentTimeMillis()));
+                user.setPassword(resultSet.getString("password"));
+                user.setNbPokemonXP(resultSet.getInt("nb_pok_xp"));
 
-            return user;
+                return user;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
