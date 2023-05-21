@@ -1,3 +1,8 @@
+/*
+    Code par FERREIRA RODRIGUES Rodrigo
+          et ABIBOU M'hammed Salman
+*/
+
 package com.uca;
 
 import com.uca.core.ExchangeCore;
