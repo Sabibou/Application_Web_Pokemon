@@ -252,7 +252,7 @@ public class PokemonDAO extends _Generic<PokemonEntity>{
 
         LinkedList<PokemonEntity> pokedex = new LinkedList<>();
 
-        for(int i=1; i<20; i++){
+        for(int i=1; i<1000; i++){
 
             PokemonEntity pokemon = this.getPokemonFromAPIById(i);
 

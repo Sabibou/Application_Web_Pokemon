@@ -7,6 +7,12 @@ main{
 
     display: flex;
     flex-direction: column;
+}
+
+#buttons{
+
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -32,5 +38,10 @@ a{
     margin-bottom: 15px;
     height: 3.8vh;
     font-size: 1.4em;
+}
+
+h2{
+
+    left: 10px;
 }
 

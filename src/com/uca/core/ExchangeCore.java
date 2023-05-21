@@ -15,12 +15,6 @@ public class ExchangeCore {
         return new ExchangeDAO().create(exchange);
     }
 
-
-    public static ExchangeEntity getExchangeFromPokemonId(int pokemon_id){
-
-        return new ExchangeDAO().getExchangeFromPokemonId(pokemon_id);
-    }
-
     public static ExchangeEntity getExchangeFromId(int id){
 
         return new ExchangeDAO().getExchangeFromId(id);
